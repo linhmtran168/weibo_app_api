@@ -1,0 +1,25 @@
+{
+  "name": "WeiboAppAdmin",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "./node_modules/.bin/nodemon app.js"
+  },
+  "dependencies": {
+    "express": "3.x",
+    "jade": "*",
+    "less-middleware": "*",
+    "mongoose": "latest",
+    "connect-redis": "*",
+    "passport": "*",
+    "passport-local": "*",
+    "connect-flash": "*",
+    "express-validator": "*",
+    "nodemon": "*",
+    "bcrypt": "*",
+    "i18n": "*",
+    "moment": "*",
+    "lodash": "*",
+    "imagemagick": "*"
+  }
+}
