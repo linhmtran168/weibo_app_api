@@ -1,8 +1,9 @@
 
 /*
- * GET home page.
+ * Main entry for setting all the app routes
  */
 
-exports.index = function(req, res){
-  res.render('index', { title: 'Express' });
+exports.index = function(app){
+  require('./admin')(app);
+  // require('./api')(app);
 };
