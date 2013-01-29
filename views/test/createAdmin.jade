@@ -1,0 +1,40 @@
+extends ../layout
+
+block content
+  if msg
+    .row
+      if msg.type === 'error'
+        .alert.offset6.span6.alert-error.register-alert.fade.in
+          button.close(type='button', data-dismiss='alert') x
+          for message in msg.messages
+            p=message
+
+  .row
+    .span7.offset6.register-block
+      form.form(action='/test/create-admin', method='post')
+        legend.register-legend First Admin Creation
+        div.offset1.register-inputs
+          div.control-group
+            input(type='hidden', name='_csrf', value=token)
+            label.control-label(for='username') Username:
+            div.controls
+              input#username.input-xlarge(type='text', name='username', placeholder='Username')
+
+          div.control-group
+            label.control-label(for='email') Email:
+            div.controls
+              input#email.input-xlarge(type='email', name='email', placeholder='Email')
+
+          div.control-group
+            label.control-label(for='password') Password:
+            div.controls
+              input#password(type='password', name='password', placeholder='Password')
+
+          div.control-group
+            label.control-label(for='passwordConfirm') Password Confirmation:
+            div.controls
+              input#password-confirm(type='password', name='passwordConfirm', placeholder='Password Confirmation')
+
+          div.control-group.register-submit
+            div.controls
+              button.btn.btn-large(type='submit') Create
