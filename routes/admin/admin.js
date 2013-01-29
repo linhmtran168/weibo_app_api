@@ -7,12 +7,23 @@ var Admin = require('../../models/admin')
  */
 module.exports = {
   /*
-   * Login user
+   * Login admin
    */
   login: function(req, res) {
-    res.render('admin/login', {
-      title: i18n.__('Login'),
-      msg: req.session.message
-    });
+    // GET Request, render the page
+    if (req.method !== 'POST') {
+      return res.render('admin/login', {
+        title: i18n.__('Login'),
+        msg: req.flash('error')
+      });
+    }
+  },
+
+  /*
+   * Logout admin
+   */
+  logout: function(req, res) {
+    req.logout();
+    return res.redirect('/login');
   }
 };

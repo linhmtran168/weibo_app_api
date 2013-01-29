@@ -1,22 +1,19 @@
 extends ../layout
 
 block content
-  if msg
-    if msg.type === 'error'
+  .login-block
+    if msg && msg.length > 0
       .row
-        .alert.alert-error.span5.offset7.login-alert
+        .alert.alert-error.login-alert
           button.close(type='button', data-dismiss='alert') x
-          for message in msg.messages
-            p=message
+          =msg
 
 
-  .row
-      form.form.login-block(action='/login', method='post')
-        legend.login-legend #{ __('admin-login') }
-        input.login-input(type='text', name='username', placeholder='#{ __('Username') }')
-        input.login-input(type='password', name='password', placeholder='#{ __('Password') }')
+    .row
+        form.form.login-form(action='/login', method='post')
+          legend.login-legend #{ __('admin-login') }
+          input.login-input(type='text', name='username', placeholder='#{ __('Username') }')
+          input.login-input(type='password', name='password', placeholder='#{ __('Password') }')
 
-        button.btn.btn-primary.btn-large(type='submit') #{ __('Login') }
-        input(type='hidden', name='_csrf', value=token)
-
-
+          button.btn.btn-primary.btn-large(type='submit') #{ __('Login') }
+          input(type='hidden', name='_csrf', value=token)

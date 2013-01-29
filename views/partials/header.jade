@@ -7,15 +7,16 @@ div.navbar.navbar-inverse.navbar-static-top
         li.divider-vertical
         li.dropdown
           div.btn-group
-            i.icon-user
-              &nbps;
+            button.btn.btn-inverse.dropdown-toggle(href='#', data-toggle='dropdown')
+              i.icon-user
+              &nbsp;
               =currentUser.username
-            button.btn.dropdown-tobble(href='#', data-toggle='dropdown')
+              &nbsp;&nbsp;
               span.caret
 
             ul.dropdown-menu
               li
                 a(href='/logout')
                   i.icon-eject
-                  | &nbsp; #{ __('log-out') }
+                  | &nbsp; #{ __('Logout') }
 
