@@ -45,7 +45,7 @@ app.configure(function(){
 
   // Session configuration
   app.all(/^(?!\/api).*$/,express.cookieParser('DragonLinhVoDich'));
-  app.use(express.session({
+  app.all(/^(?!\/api).*$/, express.session({
     store: new RedisStore({ db: 'weiboAppSessions', maxAge: 14400000 }),
     secret: 'DragonLinhVodich'
   }));
@@ -67,22 +67,23 @@ app.configure(function(){
     return next();
   });
 
+  // Use i18n
+  app.use(i18n.init);
+
   // Configure local variables
+  // i18n in template
   app.locals({
     __: i18n.__,
     __n: i18n.__n
   });
   app.locals.slug = '';
 
-  // User i18n
-  app.use(i18n.init);
   // Router configuration
   app.use(app.router);
 
   // Error Handler
   app.use(errHandler.logErrors);
   app.use(errHandler.clientErrorHandler);
-  app.use(errHandler.errorHandler);
 });
 
 app.configure('development', function() {
@@ -97,6 +98,9 @@ app.configure('production', function() {
 
 // Passport configuration
 require('./configs/passport').config(passport);
+
+// Route for the app
+require('./routes')(app);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

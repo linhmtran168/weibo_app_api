@@ -22,14 +22,6 @@ adminSchema.pre('save', function(next) {
   next();
 });
 
-// Create the virtual attribute password
-adminSchema.virtual('password').set(function(password) {
-  var that = this;
-  bcrypt.hash(password, 10, function(err, hash) {
-    // Save the hash to the database
-    that.hash = hash;
-  });
-});
 
 // Method to verify password
 adminSchema.method('verifyPassword', function(password, callback) {
