@@ -1,26 +1,21 @@
-div.navbar.navbar-static-top
+div.navbar.navbar-inverse.navbar-static-top
   div.navbar-inner
     div.container
       a.brand(href='/') #{ __('main-title') }
 
-      if currentUser
-        ul.nav.pull-right
-          li.divider-vertical
-          li.dropdown
-            div.btn-group
-              i.icon-user
-                &nbps;
-                =currentUser.username
-              button.btn.dropdown-tobble(href='#', data-toggle='dropdown')
-                span.caret
+      ul.nav.pull-right
+        li.divider-vertical
+        li.dropdown
+          div.btn-group
+            i.icon-user
+              &nbps;
+              =currentUser.username
+            button.btn.dropdown-tobble(href='#', data-toggle='dropdown')
+              span.caret
 
-              ul.dropdown-menu
-                li
-                  a(href='#')
-                    i.icon-th-large
-                    | &nbsp; #{ __('dashboard') }
-                li
-                  a(href='/logout')
-                    i.icon-eject
-                    | &nbsp; #{ __('log-out') }
+            ul.dropdown-menu
+              li
+                a(href='/logout')
+                  i.icon-eject
+                  | &nbsp; #{ __('log-out') }
 

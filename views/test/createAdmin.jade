@@ -4,14 +4,14 @@ block content
   if msg
     .row
       if msg.type === 'error'
-        .alert.offset6.span6.alert-error.register-alert.fade.in
+        .alert.alert-error.register-alert.fade.in
           button.close(type='button', data-dismiss='alert') x
           for message in msg.messages
             p=message
 
   .row
-    .span7.offset6.register-block
-      form.form(action='/test/create-admin', method='post')
+    .register-block
+      form(action='/test/create-admin', method='post')
         legend.register-legend First Admin Creation
         div.offset1.register-inputs
           div.control-group
@@ -37,4 +37,4 @@ block content
 
           div.control-group.register-submit
             div.controls
-              button.btn.btn-large(type='submit') Create
+              button.btn.btn-primary(type='submit') Create Admin

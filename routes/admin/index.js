@@ -3,7 +3,8 @@
  */
 var passport = require('passport')
   , adminHelper = require('../helpers/admin')
-  , testCtrl = require('./test');
+  , testCtrl = require('./test')
+  , adminCtrl = require('./admin');
 
 module.exports = function(app) {
   /*
@@ -11,4 +12,9 @@ module.exports = function(app) {
    */
   app.get('/test/create-admin', adminHelper.csrf, testCtrl.createAdmin);
   app.post('/test/create-admin', adminHelper.validateAdmin, testCtrl.createAdmin);
+
+  /*
+   * ============ Route for super admin
+   */
+  app.get('/login', [adminHelper.ensureNotAuthenticated, adminHelper.csrf], adminCtrl.login);
 };

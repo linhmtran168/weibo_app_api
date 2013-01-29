@@ -16,10 +16,16 @@ html
     meta(http-equiv='X-UI-Compatible', content='IE=edge,chrome=1')
     block head
       link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    include partials/header
+  if currentUser
+    body
+  else
+    body.login-background
 
-    block content
+    .container
+      if currentUser
+        include partials/header
+
+      block content
 
     block scripts
       script(src='/components/jquery/jquery.js')

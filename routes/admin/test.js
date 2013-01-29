@@ -9,9 +9,13 @@ module.exports = {
   // Test Create admin
   createAdmin: function(req, res) {
     if (req.method !== 'POST') {
+      // Assigne the message session and delete the old message
+      var msg = req.session.message;
+      req.session.message = null;
+
       return res.render('test/createAdmin', {
         title: i18n.__('create-admin'),
-        msg: req.session.message
+        msg: msg
       });
     }
 
