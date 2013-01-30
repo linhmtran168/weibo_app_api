@@ -9,7 +9,7 @@ var mongoose = require('mongoose')
 
 var adminSchema = new Schema({
   username: { type: String, required: true, index: { unique: true } },
-  email: { type: String, required: true, index: { unique: true } },
+  email: { type: String },
   hash: { type: String, required: true },
   role: { type: String, enum: ['shopAdmin', 'superAdmin'], index: true },
   createdAt: { type: Date, default: Date.now, index: true },

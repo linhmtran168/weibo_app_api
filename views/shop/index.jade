@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+  .tab-bar
+    ul.nav.nav-tabs
+      li.active
+        a.border-link(href='/shops') 
+          | #{ __('list-shop') }
+      li
+        a.border-link(href='#') 
+          | #{ __('create-shop') }
+
+  .content-container
+
+

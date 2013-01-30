@@ -10,12 +10,11 @@ module.exports = {
   createAdmin: function(req, res) {
     if (req.method !== 'POST') {
       // Assigne the message session and delete the old message
-      var msg = req.session.message;
-      req.session.message = null;
+
 
       return res.render('test/createAdmin', {
         title: i18n.__('create-admin'),
-        msg: msg
+        msg: req.flash('message')[0]
       });
     }
 
@@ -29,10 +28,13 @@ module.exports = {
 
       var admin = new Admin({
         username: req.body.username,
-        email: req.body.email,
         hash: hash,
         role: 'superAdmin'
       });
+
+      if (req.body.email) {
+        admin.email = req.body.email;
+      }
 
       // Attem to save the admin
       admin.save(function(err) {
@@ -40,7 +42,9 @@ module.exports = {
           console.error(err);
           res.redirect(500, '/test/create-admin');
         } else {
-          console.log('Save admin successfully');
+          console.log('Save super admin successuflly');
+          req.flash('message', { type: 'success', messages: [i18n.__('superadmin-created')] });
+          return res.redirect('back');
         }
       });
     });

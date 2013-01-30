@@ -27,15 +27,6 @@ exports.ensureNotAuthenticated = function(req, res, next) {
   next();
 };
 
-/*
- * Middle ware to create a csrf token to use with the request
- */
-exports.csrf = function(req, res, next) {
-  // Set the local token variale
-  res.locals.token = req.session._csrf;
-
-  next();
-};
 
 /*
  * Middleware to validate an admin
@@ -44,16 +35,22 @@ exports.validateAdmin = function(req, res, next) {
   // Check fields
   req.check('username', i18n.__('invalid-username')).notEmpty().is(/^[a-zA-Z0-9]+$/);
   req.check('username', i18n.__('invalid-username-length')).len(4, 20);
-  req.check('email', i18n.__('invalid-email')).notEmpty().isEmail();
+  // If exist email field
+  if (req.body.email) {
+    req.check('email', i18n.__('invalid-email')).isEmail();
+  }
   req.check('password', i18n.__('invalid-password')).notEmpty().len(6, 20);
   req.check('passwordConfirm', i18n.__('invalid-pasword-confirm')).notEmpty().equals(req.body.password);
 
   // Create the maped errors array
   var errors = req.validationErrors(true);
 
+  if (!errors) {
+    errors = {};
+  }
 
   // Check for exist email or username
-  Admin.findOne({ $or: [ { 'username': req.body.username }, { 'email': req.body.email } ] }, function(err, user) {
+  Admin.findOne({ $or: [ { 'username': req.body.username }, { 'email': req.body.email } ], role: 'superAdmin' }, function(err, user) {
     if (err) {
       console.error(err);
       return res.redirect(500, 'back');
@@ -80,6 +77,7 @@ exports.validateAdmin = function(req, res, next) {
       }
     }
 
+
     // Create the message array
     var msgArray = [];
 
@@ -90,7 +88,7 @@ exports.validateAdmin = function(req, res, next) {
     }
 
     if (!_.isEmpty(msgArray)) {
-      req.session.message =  { type: 'error', messages: msgArray };
+      req.flash('message', { type: 'error', messages: msgArray });
       return res.redirect('back');
     }
 
@@ -98,4 +96,16 @@ exports.validateAdmin = function(req, res, next) {
     return next();
   });
 
+};
+
+/*
+ * Middleware to check if a user is a admin or not
+ */
+exports.isSuperAdmin = function(req, res, next) {
+  // If this user is not super admin, redirect to main shop detail page
+  if (req.user.role !== 'superAdmin') {
+    return res.redirect('/shop');
+  }
+
+  next();
 };

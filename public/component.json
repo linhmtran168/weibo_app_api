@@ -4,6 +4,9 @@
   "dependencies": {
     "bootstrap": "~2.2.2",
     "modernizr": "~2.6.2",
-    "font-awesome": "~3.0.2"
+    "font-awesome": "~3.0.2",
+    "lodash": "~1.0.0-rc.3",
+    "jasny-bootstrap": "/Users/mb985/Downloads/jasny-bootstrap",
+    "jqBootstrapValidation": "/Users/mb985/Downloads/jqBootstrapValidation"
   }
 }

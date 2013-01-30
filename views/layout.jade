@@ -16,8 +16,10 @@ html
     meta(http-equiv='X-UI-Compatible', content='IE=edge,chrome=1')
     block head
       link(rel='stylesheet', href='/stylesheets/style.css')
+      link(rel='stylesheet', href='/components/jasny-bootstrap/css/jasny-bootstrap.css')
+      link(rel='stylesheet', href='/components/jasny-bootstrap/css/jasny-bootstrap-responsive.css')
 
-  body(class="#{ currentUser ? '' : 'login-background' }")
+  body
 
     if currentUser
       include partials/header
@@ -26,5 +28,9 @@ html
       block content
 
     block scripts
-      script(src='/components/jquery/jquery.js')
-      script(src='/components/bootstrap/docs/assets/js/bootstrap.js')
+      script(src='/components/jquery/jquery.min.js')
+      script(src='/components/jqBootstrapValidation/jqBootstrapValidation.js')
+      script(src='/components/bootstrap/docs/assets/js/bootstrap.min.js')
+      script(src='/components/jasny-bootstrap/js/jasny-bootstrap.min.js')
+      script(src='/components/lodash/lodash.min.js')
+      script(src='/javascripts/main.js')

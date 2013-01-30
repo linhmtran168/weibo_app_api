@@ -21,4 +21,9 @@ var shopSchema = new Schema({
 shopSchema.pre('save', function(next) {
   // Update timestamp
   this.updatedAt = new Date();
+  next();
 });
+
+var Shop = mongoose.model('Shop', shopSchema);
+
+module.exports = Shop;

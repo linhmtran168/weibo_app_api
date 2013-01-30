@@ -1,13 +1,12 @@
 extends ../layout
 
 block content
-  if msg
+  if typeof msg !== 'undefined'
     .row
-      if msg.type === 'error'
-        .alert.alert-error.register-alert.fade.in
-          button.close(type='button', data-dismiss='alert') x
-          for message in msg.messages
-            p=message
+      .alert.register-alert.fade.in(class="#{ 'alert-' + msg.type }")
+        button.close(type='button', data-dismiss='alert') x
+        for message in msg.messages
+          p=message
 
   .row
     .register-block
