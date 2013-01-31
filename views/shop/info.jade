@@ -1,0 +1,45 @@
+extends ../layout
+
+block content
+  .tab-bar
+    ul.nav.nav-tabs
+      li
+        a.border-link(href='/shops') 
+          | #{ __('list-shop') }
+      li.active
+        a.border-link(href='#') 
+          | Shop's #{ __('Information') }
+
+  .content-container.content-border-left
+    .shop-container
+      .shop-image.span4
+        img.img-polaroid(src='/images/#{shop.avatar}')
+
+      .span6.shop-info
+        .row
+          p.shop-legend #{ __('shop-info') }
+          table.table
+            tr
+              td
+                strong #{ __('shop-name') }:
+              td
+                | #{ shop.name }
+            tr
+              td
+                strong #{ __('shop-description') }:
+              td
+                | ABCXYZ 
+            tr
+              td
+                strong #{ __('shop-admin') }:
+              td
+                | #{ shop.admin.username }
+
+        .row
+          .shop-operation
+            a.btn.btn-info.offset1.span1(href='#') #{ __('Edit') }
+            a#delete-shop.btn.btn-danger.span1(href='/shop/delete/#{ shop.id }') #{ __('Delete') }
+            input#confirm-delete(type='hidden', value="#{ __('confirm-shop-delete') }")
+            input#cancel(type='hidden', value="#{ __('Cancel') }")
+            input#continue(type='hidden', value="#{ __('Continue!') }")
+
