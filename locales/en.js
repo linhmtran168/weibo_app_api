@@ -35,5 +35,10 @@
 	"password-required": "password-required",
 	"invalid-password-minlength": "invalid-password-minlength",
 	"confirm-password-match": "confirm-password-match",
-	"create-shop-success": "create-shop-success"
+	"create-shop-success": "create-shop-success",
+	"no-shop": "There is no shop right now",
+	"First": "First",
+	"Previous": "Previous",
+	"Next": "Next",
+	"Last": "Last"
 }

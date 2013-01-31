@@ -5710,6 +5710,7 @@ a.badge:hover {
 }
 body {
   background-color: #f5f5f5;
+  padding-top: 40px;
 }
 .content-container {
   border: 1px solid #dddddd;
@@ -5831,4 +5832,43 @@ body {
 }
 .create-shop-form button[type='submit'] {
   margin-top: 20px;
+}
+/* List shop view */
+.shop-list-alert {
+  margin: 20px auto 0px;
+  width: 400px;
+}
+.no-shop {
+  margin: 100px auto 20px;
+  width: 500px;
+  text-align: center;
+  font-size: 20px;
+}
+.shop-list {
+  margin: 40px auto 10px;
+  width: 800px;
+}
+.shop-list .shop-grids {
+  margin-left: 0px;
+}
+.shop-list .shop-grids .thumbnail-img-div {
+  height: 130px;
+  overflow: hidden;
+  position: relative;
+}
+.shop-list .shop-grids .thumbnail-img-div img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+.shop-list .shop-grids .caption {
+  text-align: center;
+}
+.shop-pager {
+  margin: 0px auto 30px;
+  width: 800px;
+}
+.shop-pager a {
+  width: 50px;
 }

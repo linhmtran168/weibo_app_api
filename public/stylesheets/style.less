@@ -31,6 +31,7 @@
 
 body {
   background-color: @body-background;
+  padding-top: 40px;
 }
 
 .content-container {
@@ -162,5 +163,49 @@ body {
 
   button[type='submit'] {
     margin-top: 20px;
+  }
+}
+
+/* List shop view */
+.shop-list-alert {
+  .centering-div(400px, 20px, 0px);
+}
+
+.no-shop {
+  .centering-div(500px, 100px, 20px);
+  text-align: center;
+  font-size: 20px;
+}
+
+.shop-list {
+  .centering-div(800px, 40px, 10px);
+
+  .shop-grids {
+    margin-left: 0px;
+
+    .thumbnail-img-div {
+      height: 130px;
+      overflow: hidden;
+      position: relative;
+
+      img {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+      }
+    }
+
+    .caption {
+      text-align: center;
+    }
+  }
+}
+
+.shop-pager {
+  .centering-div(800px, 0px, 30px);
+
+  a {
+    width: 50px;
   }
 }

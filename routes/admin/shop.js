@@ -69,7 +69,7 @@ module.exports = {
    */
   index: function(req, res) {
     // Variables hold the page number
-    var itemsPerPage = 10
+    var itemsPerPage = 30
       , skipItems = 0
       , pageNum = 1
       , msg = req.flash('message')[0];
@@ -90,6 +90,7 @@ module.exports = {
       var maxNumPage = Math.ceil(shopNums / itemsPerPage);
       maxNumPage = maxNumPage > 0 ? maxNumPage : 1;
 
+      // If page query > max number of page
       if (pageNum > maxNumPage) {
         pageNum = maxNumPage;
       }

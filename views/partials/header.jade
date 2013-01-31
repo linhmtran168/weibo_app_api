@@ -1,22 +1,28 @@
-div.navbar.navbar-inverse.navbar-static-top
+div.navbar.navbar-inverse.navbar-fixed-top
   div.navbar-inner
     div.container
+      a.btn.btn-navbar.collapsed(data-toggle='collapse', data-target='.nav-collapse')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+
       a.brand(href='/') #{ __('main-title') }
 
-      ul.nav.pull-right
-        li.divider-vertical
-        li.dropdown
-          div.btn-group
-            button.btn.btn-inverse.dropdown-toggle(href='#', data-toggle='dropdown')
-              i.icon-user
-              &nbsp;
-              =currentUser.username
-              &nbsp;&nbsp;
-              span.caret
+      .nav-collapse.collapse.in
+        ul.nav.pull-right
+          li.divider-vertical
+          li.dropdown
+            div.btn-group
+              a.btn.btn-inverse.dropdown-toggle(href='#', data-toggle='dropdown')
+                i.icon-user
+                &nbsp;
+                =currentUser.username
+                &nbsp;&nbsp;
+                span.caret
 
-            ul.dropdown-menu
-              li
-                a(href='/logout')
-                  i.icon-eject
-                  | &nbsp; #{ __('Logout') }
+              ul.dropdown-menu
+                li
+                  a(href='/logout')
+                    i.icon-eject
+                    | &nbsp; #{ __('Logout') }
 

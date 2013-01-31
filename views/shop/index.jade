@@ -7,9 +7,61 @@ block content
         a.border-link(href='/shops') 
           | #{ __('list-shop') }
       li
-        a.border-link(href='#') 
+        a.border-link(href='/shop/create') 
           | #{ __('create-shop') }
 
   .content-container
+    if typeof msg !== 'undefined'
+      .row
+        .alert.shop-list-alert(class='alert-#{ msg.type }')
+          button.close(type='button', data-dismiss='alert') x
+          for message in msg.messages
+            p=message
+
+    .row
+      if shops.length === 0
+        .no-shop
+          p.text-info #{ __('no-shop') }
+      else
+        .shop-list
+          ul.shop-grids.thumbnails
+            for shop in shops
+              li.span2
+                .thumbnail
+                  .thumbnail-img-div
+                    a(href='/shop/#{ shop.id }')
+                      img(src='/images/#{ shop.avatar }')
+                  .caption
+                    a(href='/shop/#{ shop.id }')
+                      strong=shop.name
+
+    if maxNumPage > 1
+      .shop-pager
+        ul.pager
+          li.previous
+            if pageNum === 1
+              a(href='#').btn.disabled &larr; #{ __('First') }
+            else 
+              a(href='/shops?page=1') &larr; #{ __('First') }
+          li
+            if pageNum === 1
+              a(href='#').btn.disabled #{ __('Previous') }
+            else
+              a(href='/shops?page=#{ pageNum -1 }') #{ __('Previous') }
+          
+          li
+            em.muted &nbsp;Page #{ pageNum } of #{ maxNumPage }&nbsp;
+
+          li 
+            if pageNum === maxNumPage
+              a(href='#').btn.disabled #{ __('Next') }
+            else
+              a(href='/shops?page=#{ pageNum + 1 }') #{ __('Next') }
+          li.next
+            if pageNum === maxNumPage
+              a(href='#').btn.disabled #{ __('Last') } &rarr;
+            else
+              a(href='/shops?page=#{ maxNumPage }') #{ __('Last') } &rarr;
+
 
 
