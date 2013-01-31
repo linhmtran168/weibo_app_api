@@ -23,7 +23,7 @@ var app = express();
 
 app.configure(function(){
   // Base configuration
-  app.set('port', process.env.PORT || 3000);
+  app.set('port', process.env.PORT || 3200);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.favicon());

@@ -47,9 +47,9 @@
 	"shop-info": "Shop Information",
 	"Edit": "Edit",
 	"Delete": "Delete",
-	"no-shop-id": "no-shop-id",
+	"no-shop-id": "There is no shop with that ID",
 	"confirm-shop-delete": "Delete the shop will also delete the shop admin! Do you still want to continue?",
 	"Cancel": "Cancel",
 	"Continue!": "Continue!",
-	"shop-deleted": "shop-deleted"
+	"shop-deleted": "Success fully deleted the shop"
 }
