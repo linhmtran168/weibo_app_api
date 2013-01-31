@@ -24,7 +24,7 @@ module.exports = function(app) {
   app.get('/login', [adminHelpers.ensureNotAuthenticated, requestHelpers.csrf], adminCtrl.login);
   app.post('/login', [adminHelpers.ensureNotAuthenticated, passport.authenticate('local', {
     badRequestMessage: i18n.__('missing-credentials'),
-    successRedirect: '/test/create-admin',
+    successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true,
   })]);
@@ -43,6 +43,11 @@ module.exports = function(app) {
   app.get('/shop/create', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin, requestHelpers.csrf], shopCtrl.create);
   app.post('/shop/create', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin, shopHelpers.checkShopName, shopHelpers.validateShopAdmin], shopCtrl.create);
 
+  // Get a shop
+  app.get('/shop/info/:id', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin], shopCtrl.info);
+
+  // Delete a shop
+  app.get('/shop/delete/:id', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin], shopCtrl.delete);
   /*
    * =========== Route for shop admin
    */

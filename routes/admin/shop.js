@@ -117,6 +117,31 @@ module.exports = {
     });
   },
 
+  info: function(req, res) {
+    // GET the shop id from the request
+    var shopId = req.params.id;
+
+    Shop.findById(shopId).populate('admin', '-hash').exec(function(err, shop) {
+      if (err) {
+        if (err.type === 'system') {
+          return res.redirect(500, 'back');
+        }
+      }
+
+      console.log(shop);
+
+      if (!shop) {
+        req.flash('message', { type: 'error', messages: [ i18n.__('no-shop-id') ] });
+        return res.redirect('back');
+      }
+
+      return res.render('shop/info', {
+        shop: shop,
+        title: shop.name
+      });
+    });
+  },
+
   detail: function(req, res) {
 
   },
@@ -163,6 +188,33 @@ module.exports = {
   },
 
   delete: function(req, res) {
+    // GET the shopID
+    var shopId = req.params.id;
 
+    Shop.findByIdAndRemove(shopId, function(err, shop) {
+      if (err) {
+        console.error(err);
+        return res.redirect(500, 'back');
+      }
+
+      console.log('Shop - successfully deleted the shop');
+
+      // Delete the shop photo
+      shopHelpers.deleteImage(shop.avatar);
+
+      // Delete the admin user of the shop
+      Admin.findByIdAndRemove(shop.admin, function(err, admin) {
+        if (err) {
+          console.error(err);
+          return res.redirect(500, 'back');
+        }
+
+        console.log('Shop - successfully deleted the shop admin');
+
+        // Create the success message
+        req.flash('message', { type: 'success', messages: [ i18n.__('shop-deleted') ] });
+        return res.redirect('/shops');
+      });
+    });
   }
 };

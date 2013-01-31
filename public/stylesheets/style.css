@@ -5715,7 +5715,7 @@ body {
 .content-container {
   border: 1px solid #dddddd;
   background-color: #ffffff;
-  min-height: 500px;
+  min-height: 400px;
   margin-top: -20px;
   margin-bottom: 50px;
   -webkit-border-radius: 6px;
@@ -5871,4 +5871,32 @@ body {
 }
 .shop-pager a {
   width: 50px;
+}
+/* Shop info view */
+.shop-container {
+  padding-left: 20px;
+  margin-top: 30px;
+}
+.shop-container .shop-info {
+  margin-left: 60px;
+}
+.shop-container .shop-info .shop-legend {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 20px;
+  font-size: 21px;
+  line-height: 40px;
+  color: #333333;
+  border: 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+.shop-container .shop-info table {
+  font-size: 15px;
+}
+.shop-container .shop-info table td {
+  border: none;
+}
+.shop-container .shop-operation {
+  margin-top: 10px;
 }

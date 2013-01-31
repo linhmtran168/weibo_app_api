@@ -75,7 +75,7 @@ exports.validateShopAdmin = function(req, res, next) {
   });
 };
 
-// Upload image for sop
+// Upload image for shop
 exports.uploadImage = function(file, callback) {
   var tmpPath = file.path
     , oldName = file.name
@@ -127,4 +127,24 @@ exports.uploadImage = function(file, callback) {
       // Return the new name of the image
       return callback(null, newName);
     });
+};
+
+// Delete image for shop
+exports.deleteImage = function(fileName) {
+  // If default image, do not delete
+  if (fileName === 'no_image.png') {
+    return;
+  }
+
+  var photoPath = './public/images/';
+
+  // Delete the  photo
+  fs.unlink(photoPath + fileName, function(err) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+
+    console.log('Photo - successfully delete the photo');
+  });
 };
