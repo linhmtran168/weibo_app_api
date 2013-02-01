@@ -5730,6 +5730,7 @@ body {
 }
 .alert p {
   margin: 0px;
+  text-align: center;
 }
 .content-border-left {
   border-top-left-radius: 6px;

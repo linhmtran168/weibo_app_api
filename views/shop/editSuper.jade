@@ -4,14 +4,14 @@ block content
   .tab-bar
     ul.nav.nav-tabs
       li
-        a.border-link(href='/shops') 
+        a.border-link(href='/admin/shops') 
           | #{ __('list-shop') }
 
       li
-        a.border-link(href='/shop/info/#{ shop.id }') 
+        a.border-link(href='/admin/shop/info/#{ shop.id }') 
           | #{ shop.name }'s #{ __('Information') }
       li.active
-        a.border-link(href='/shop/admin/edit')
+        a.border-link(href='/admin/shop/edit')
           | #{ shop.name } #{ __('Edit') }
 
   .content-container.content-border-left
@@ -23,7 +23,7 @@ block content
             p=message
 
     .row
-      form.form-horizontal.edit-shop-super(action='/shop/admin/edit/#{ shop.id }', method='POST', enctype='multipart/form-data')
+      form.form-horizontal.edit-shop-super(action='/admin/shop/edit/#{ shop.id }', method='POST', enctype='multipart/form-data')
         fieldset
           legend #{ __('form-shop-detail') }
           p.muted 

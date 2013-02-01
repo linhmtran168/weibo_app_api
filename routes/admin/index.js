@@ -37,26 +37,26 @@ module.exports = function(app) {
    */
   // List shop
   app.get('/', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin, requestHelpers.checkPageParam], shopCtrl.index);
-  app.get('/shops', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin, requestHelpers.checkPageParam], shopCtrl.index);
+  app.get('/admin/shops', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin, requestHelpers.checkPageParam], shopCtrl.index);
 
   // Create shop
-  app.get('/shop/create', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin, requestHelpers.csrf], shopCtrl.create);
-  app.post('/shop/create', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin, shopHelpers.checkShopName, shopHelpers.validateShopAdmin], shopCtrl.create);
+  app.get('/admin/shop/create', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin, requestHelpers.csrf], shopCtrl.create);
+  app.post('/admin/shop/create', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin, shopHelpers.checkShopName, shopHelpers.validateShopAdmin], shopCtrl.create);
 
   // Get a shop
-  app.get('/shop/info/:id', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin], shopCtrl.info);
+  app.get('/admin/shop/info/:id', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin], shopCtrl.info);
 
   // Edit shop
-  app.get('/shop/admin/edit/:id', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin, requestHelpers.csrf], shopCtrl.editSuper);
-  app.post('/shop/admin/edit/:id', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin, shopHelpers.validateEditShopSuper], shopCtrl.editSuper);
+  app.get('/admin/shop/edit/:id', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin, requestHelpers.csrf], shopCtrl.editSuper);
+  app.post('/admin/shop/edit/:id', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin, shopHelpers.validateEditShopSuper], shopCtrl.editSuper);
 
   // Delete a shop
-  app.get('/shop/delete/:id', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin], shopCtrl.delete);
+  app.get('/admin/shop/delete/:id', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin], shopCtrl.delete);
 
   /*
    * =========== Route for shop admin
    */
-  // Check user name
+  // Check user name])
   app.get('/admin/check-username', adminHelpers.ensureAuthenticated, adminCtrl.checkUsername);
 
   // Get admin's shop
@@ -64,4 +64,5 @@ module.exports = function(app) {
 
   // Render admin' edit shop page
   app.get('/shop/edit', [adminHelpers.ensureAuthenticated, adminHelpers.isShopAdmin, requestHelpers.csrf], shopCtrl.editShop);
+  app.post('/shop/edit', [adminHelpers.ensureAuthenticated, adminHelpers.isShopAdmin, shopHelpers.validateEditShop], shopCtrl.editShop);
 };

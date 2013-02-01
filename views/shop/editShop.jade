@@ -46,22 +46,22 @@ block content
           .control-group
             label.control-label(for='description') #{ __('Description') }
             .controls
-              textarea(rows='3', placeholder="#{ __('Description') }", name='description', value='#{ shop.description }')
+              textarea(rows='3', placeholder="#{ __('Description') }", name='description')=shop.description
 
           .control-group
             label.control-label(for='address') #{ __('Address') }
             .controls
-              input.input-xlarge(type='text', name='address', placeholder="#{ __('Address') }")
+              input.input-xlarge(type='text', name='address', placeholder="#{ __('Address') }", value='#{ shop.address ? shop.address : '' }')
 
           .control-group
             label.control-label(for='phoneNumber') #{ __('phone-number') }
             .controls
-              input.input-xlarge(type='text', name='phoneNumber', placeholder="#{ __('phone-number') }", data-validation-regex-regex='[0-9]+', data-validation-regex-message="#{ __('invalid-phone-num') }")
+              input.input-xlarge(type='text', name='phoneNumber', placeholder="#{ __('phone-number') }", data-validation-regex-regex='[0-9]+', data-validation-regex-message="#{ __('invalid-phone-num') }", value='#{ shop.phoneNumber ? shop.phoneNumber : '' }')
 
           .control-group
             label.control-label(for='openingHours') #{ __('opening-hour') }
             .controls
-              input.input-xlarge(type='text', name='openingHours', placeHolder="#{ __('Format') }: 09:00 - 21:30", data-validation-regex-regex="([01][0-9]|2[0-3]):[0-5][0-9] - ([01][0-9]|2[0-3]):[0-5][0-9]", data-validation-regex-message="#{ __('wrong-time-format') }")
+              input.input-xlarge(type='text', name='openingHours', placeHolder="#{ __('Format') }: 09:00 - 21:30", data-validation-regex-regex="([01][0-9]|2[0-3]):[0-5][0-9] - ([01][0-9]|2[0-3]):[0-5][0-9]", data-validation-regex-message="#{ __('wrong-time-format') }", value='#{ shop.openingHours ? shop.openingHours : '' }')
 
           .control-group
             label.control-label(for='payOptions') #{ __('payment-options') }
@@ -70,34 +70,63 @@ block content
                 tr
                   td
                     label.checkbox.checkbox-label
-                      input(type='checkbox', value="Cash", name='payOptions[]') 
-                      | #{ __('現金') }
+                      if shop.paymentOpts && shop.paymentOpts.indexOf('Cash') !== -1
+                        input(type='checkbox', value="Cash", name='payOptions', checked='checked', data-validation-minchecked-minchecked='1', data-validation-minchecked-message="#{ __('need-one-pay-opt') }") 
+                        | #{ __('現金') }
+                      else
+                        input(type='checkbox', value="Cash", name='payOptions', data-validation-minchecked-minchecked='1', data-validation-minchecked-message="#{ __('need-one-pay-opt') }") 
+                        | #{ __('現金') }
                   td
                     label.checkbox.checkbox-label
-                      input(type='checkbox', value="UnionPay", name='payOptions[]')
-                      | #{ __('銀聯') }
+                      if shop.paymentOpts && shop.paymentOpts.indexOf('UnionPay') !== -1
+                        input(type='checkbox', value="UnionPay", name='payOptions', checked='checked')
+                        | #{ __('銀聯') }
+                      else
+                        input(type='checkbox', value="UnionPay", name='payOptions')
+                        | #{ __('銀聯') }
                   td
                     label.checkbox.checkbox-label
-                      input(type='checkbox', value="VISA", name='payOptions[]')
-                      | #{ __('VISA') }
+                      if shop.paymentOpts && shop.paymentOpts.indexOf('VISA') !== -1
+                        input(type='checkbox', value="VISA", name='payOptions', checked='checked')
+                        | #{ __('VISA') }
+                      else
+                        input(type='checkbox', value="VISA", name='payOptions')
+                        | #{ __('VISA') }
+
                 tr
                   td
                     label.checkbox.checkbox-label
-                      input(type='checkbox', value="Master", name='payOptions[]')
-                      | #{ __('Master') }
+                      if shop.paymentOpts && shop.paymentOpts.indexOf('MASTER') !== -1
+                        input(type='checkbox', value="Master", name='payOptions', checked='checked')
+                        | #{ __('Master') }
+                      else
+                        input(type='checkbox', value="Master", name='payOptions')
+                        | #{ __('Master') }
                   td
                     label.checkbox.checkbox-label
-                      input(type='checkbox', value="JCB", name='payOptions[]')
-                      | #{ __('JCB') }
+                      if shop.paymentOpts && shop.paymentOpts.indexOf('JCB') !== -1
+                        input(type='checkbox', value="JCB", name='payOptions', checked='checked')
+                        | #{ __('JCB') }
+                      else
+                        input(type='checkbox', value="JCB", name='payOptions')
+                        | #{ __('JCB') }
                   td
                     label.checkbox.checkbox-label
-                      input(type='checkbox', value="AMEX", name='payOptions[]')
-                      | #{ __('AMEX') }
+                      if shop.paymentOpts && shop.paymentOpts.indexOf('AMEX') !== -1
+                        input(type='checkbox', value="AMEX", name='payOptions', checked='checked')
+                        | #{ __('AMEX') }
+                      else
+                        input(type='checkbox', value="AMEX", name='payOptions')
+                        | #{ __('AMEX') }
                 tr
                   td
                     label.checkbox.checkbox-label
-                      input(type='checkbox', value="Other", name='payOptions[]')
-                      | #{ __('Other') }
+                      if shop.paymentOpts && shop.paymentOpts.indexOf('Other') !== -1
+                        input(type='checkbox', value="Other", name='payOptions', checked='checked')
+                        | #{ __('Other') }
+                      else
+                        input(type='checkbox', value="Other", name='payOptions')
+                        | #{ __('Other') }
 
           .control-group
             label.control-label(for='wifi') #{ __('Wifi') }
@@ -106,78 +135,86 @@ block content
                 tr
                   td
                     label.radio.radio-label
-                      input(type='radio', name='wifi', value='yes')
+                      input(type='radio', name='wifi', value='yes', checked='#{ shop.wifi ? 'checked' : '' }')
                       | Yes
                   td
                     label.radio.radio-label
-                      input(type='radio', name='wifi', value='no')
+                      input(type='radio', name='wifi', value='no', checkd='#{ shop.wifi ? 'checked' : '' }')
                       | No
 
           .control-group
-            label.control-label(for='languages') #{ __('Languges') }
+            label.control-label(for='languages') #{ __('Languages') }
             .controls
               table
                 tr
                   td
                     label.checkbox.checkbox-label
-                      input(type='checkbox', value='Japanese', name='languages[]')
-                      | #{ __('Japanese') }
+                      if shop.languages && shop.languages.indexOf('Japanese') !== -1
+                        input(type='checkbox', value='Japanese', name='languages', checked='checked', data-validation-minchecked-minchecked='1', data-validation-minchecked-message="#{ __('need-one-lang') }")
+                        | #{ __('Japanese') }
+                      else
+                        input(type='checkbox', value='Japanese', name='languages', data-validation-minchecked-minchecked='1', data-validation-minchecked-message="#{ __('need-one-lang') }")
+                        | #{ __('Japanese') }
                   td
                     label.checkbox.checkbox-label
-                      input(type='checkbox', value='Chinese', name='languages[]')
-                      | #{ __('Chinese') }
+                      if shop.languages && shop.languages.indexOf('Chinese') !== -1
+                        input(type='checkbox', value='Chinese', name='languages', checked='checked')
+                        | #{ __('Chinese') }
+                      else
+                        input(type='checkbox', value='Chinese', name='languages')
+                        | #{ __('Chinese') }
                   td
                     label.checkbox.checkbox-label
-                      input(type='checkbox', value='English', name='languages[]')
-                      | #{ __('English') }
+                      if shop.languages && shop.languages.indexOf('English') !== -1
+                        input(type='checkbox', value='English', name='languages', checked='checked')
+                        | #{ __('English') }
+                      else 
+                        input(type='checkbox', value='English', name='languages')
+                        | #{ __('English') }
                 tr
                   td
                     label.checkbox.checkbox-label
-                      input(type='checkbox', value='Korean', name='languages[]')
-                      | #{ __('Korean') }
+                      if shop.languages && shop.languages.indexOf('Korean') !== -1
+                        input(type='checkbox', value='Korean', name='languages', checked='checked')
+                        | #{ __('Korean') }
+                      else
+                        input(type='checkbox', value='Korean', name='languages')
+                        | #{ __('Korean') }
                   td
                     label.checkbox.checkbox-label
-                      input(type='checkbox', value='Other', name='languages[]')
-                      | #{ __('Other') }
+                      if shop.languages && shop.languages.indexOf('Other') !== -1
+                        input(type='checkbox', value='Other', name='languages', checked='checked')
+                        | #{ __('Other') }
+                      else
+                        input(type='checkbox', value='Other', name='languages')
+                        | #{ __('Other') }
 
           .control-groups
             label.control-label(for='station') #{ __('near-station') }
             .controls.stations
-              input(type='text', name='station[]', placeholder="#{ __('Station') } 1")
-              input(type='text', name='station[]', placeholder="#{ __('Station') } 2")
-              input(type='text', name='station[]', placeholder="#{ __('Station') } 3")
+              - for (i = 0; i < 3; i++)
+                if (shop.nearStations[i] && shop.nearStations[i].length > 0)
+                  input(type='text', name='stations', placeholder="#{ __('Station') + ' ' + (i + 1) }", value="#{ shop.nearStations[i] }")
+                else
+                  input(type='text', name='stations', placeholder="#{ __('Station') + ' ' + (i + 1) }")
 
           .control-groups
-            label.control-label(for='customFields') #{ __('custom-field') }
+            label.control-label(for='customFieldss') #{ __('custom-fields') }
             .controls.custom-fields
               table
-                tr
-                  td
-                    input.input-small(type='text', name='customField[0][]', placeholder="#{ __('custom-field') } 1")
-                  td
-                    input(type='text', name='customeField[0][]', placeholder="#{ __('custom-fiel-value') } 1")
-                tr
-                  td
-                    input.input-small(type='text', name='customField[1][]', placeholder="#{ __('custom-field') } 2")
-                  td
-                    input(type='text', name='customeField[1][]', placeholder="#{ __('custom-fiel-value') } 2")
-
-                tr
-                  td
-                    input.input-small(type='text', name='customField[2][]', placeholder="#{ __('custom-field') } 3")
-                  td
-                    input(type='text', name='customeField[2][]', placeholder="#{ __('custom-fiel-value') } 3")
-                tr
-                  td
-                    input.input-small(type='text', name='customField[3][]', placeholder="#{ __('custom-field') } 4")
-                  td
-                    input(type='text', name='customeField[3][]', placeholder="#{ __('custom-fiel-value') } 4")
-                tr
-                  td
-                    input.input-small(type='text', name='customField[4][]', placeholder="#{ __('custom-field') } 5")
-                  td
-                    input(type='text', name='customeField[4][]', placeholder="#{ __('custom-fiel-value') } 1")
-                      
+                - for (i = 0; i < 5; i++)
+                  if (shop.customFields[i])
+                    tr
+                      td
+                        input.input-small(type='text', name='customFields[#{i}]', placeholder="#{ __('custom-field') + ' ' + (i + 1) }", value='#{ shop.customFields[i].name }')
+                      td
+                        input(type='text', name='customFields[#{i}]', placeholder="#{ __('custom-field-value') + ' ' + (i + 1 ) }", value='#{ shop.customFields[i].value }')
+                  else
+                    tr
+                      td
+                        input.input-small(type='text', name='customFields[#{i}]', placeholder="#{ __('custom-field') + ' ' + (i + 1) }")
+                      td
+                        input(type='text', name='customFields[#{i}]', placeholder="#{ __('custom-field-value') + ' ' + (i + 1 ) }")
 
         fieldset
           .control-group

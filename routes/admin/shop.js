@@ -78,6 +78,7 @@ module.exports = {
         }
       }
 
+      console.log(shop);
 
       if (!shop) {
         req.flash('message', { type: 'error', messages: [ i18n.__('no-shop-id') ] });
@@ -182,6 +183,85 @@ module.exports = {
           msg: req.flash('message')[0]
         });
       }
+
+      // POST request
+      shop.name = req.body.shopName;
+      if (req.body.address) {
+        shop.address = req.body.address;
+      }
+
+      if (req.body.phoneNumber) {
+        shop.phoneNumber = req.body.phoneNumber;
+      }
+
+      if (req.body.openingHours) {
+        shop.openingHours = req.body.openingHours;
+      }
+
+      shop.paymentOpts = _.isArray(req.body.payOptions) ? req.body.payOptions : [req.body.payOptions];
+
+      shop.languages = _.isArray(req.body.languages) ? req.body.languages : [req.body.languages];
+
+      shop.wifi = req.body.wifi === 'yes' ? true : false;
+
+      console.log(req.body.stations);
+      if (!_.isEmpty(req.body.stations)) {
+        shop.nearStations = _.isArray(req.body.stations) ? _.reject(req.body.stations, function(station) { return station === ''; }) : [req.body.stations];
+      } else {
+        shop.nearStations = [];
+      }
+
+      // Change the custom fields
+      var fields = [];
+      _(req.body.customFields).forEach(function(field) {
+        if (!_.isEmpty(field)) {
+          fields.push({ name: field[0], value: field[1] });
+        } 
+      });
+
+      shop.customFields = fields;
+
+
+      // If there is no new avatar
+      if (!req.files.avatar.name) {
+        shop.save(function(err) {
+          if (err) {
+            console.error(err);
+            return res.redirect(500, 'back');
+          }
+
+          console.log(shop);
+
+          req.flash('message', { type: 'success', messages: [ i18n.__('update-shop-success') ] });
+          return res.redirect('/shop');
+        });
+      } else {
+        // Have new avatar
+        imgHelpers.uploadImage(req.files.avatar, function(err, newAvatarName) {
+          if (err) {
+            if (err.type === 'system') {
+              return res.redirect(500, 'back');
+            }
+
+            req.flash('message', { type: 'error', messages: [err.message] });
+            return res.redirect('back');
+          }
+
+          shop.avatar = newAvatarName;
+
+          shop.save(function(err) {
+            if (err) {
+              console.error(err);
+              return res.redirect(500, 'back');
+            }
+
+            console.log(shop);
+
+            req.flash('message', { type: 'success', messages: [ i18n.__('update-shop-success') ] });
+            return res.redirect('/shop');
+          });
+        });
+      }
     });
   },
 
@@ -231,7 +311,7 @@ module.exports = {
 
             // Create the successful message and redirect
             req.flash('message', { type: 'success', messages: [ i18n.__('update-shop-success') ] });
-            return res.redirect('/shop/info/' + shop.id);
+            return res.redirect('/admin/shop/info/' + shop.id);
           });
         } else {
           // If there is password field, find the shop admin and update
@@ -263,7 +343,7 @@ module.exports = {
 
               // Create the successful message and redirect
               req.flash('message', { type: 'success', messages: [ i18n.__('update-shop-success') ] });
-              return res.redirect('/shop/info/' + shop.id);
+              return res.redirect('/admin/shop/info/' + shop.id);
             });
           } else {
             // Find the shop admin and update
@@ -300,7 +380,7 @@ module.exports = {
 
         // Create the success message
         req.flash('message', { type: 'success', messages: [ i18n.__('shop-deleted') ] });
-        return res.redirect('/shops');
+        return res.redirect('/');
       });
     });
   }

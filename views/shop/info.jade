@@ -5,10 +5,10 @@ block content
     ul.nav.nav-tabs
       if currentUser.role === 'superAdmin'
         li
-          a.border-link(href='/shops') 
+          a.border-link(href='/admin/shops') 
             | #{ __('list-shop') }
         li.active
-          a.border-link(href='/shop/info/#{ shop.id }') 
+          a.border-link(href='/admin/shop/info/#{ shop.id }') 
             | Shop's #{ __('Information') }
       else
         li.active
@@ -49,11 +49,11 @@ block content
         .row
           .shop-operation
             if currentUser.role === 'superAdmin'
-              a.btn.btn-info.offset1.span1(href='/shop/admin/edit/#{ shop.id }') #{ __('Edit') }
+              a.btn.btn-info.offset1.span1(href='/admin/shop/edit/#{ shop.id }') #{ __('Edit') }
             else
               a.btn.btn-info.offset1.span1(href='/shop/edit') #{ __('Edit') }
             if currentUser.role === 'superAdmin'
-              a#delete-shop.btn.btn-danger.span1(href='/shop/delete/#{ shop.id }') #{ __('Delete') }
+              a#delete-shop.btn.btn-danger.span1(href='/admin/shop/delete/#{ shop.id }') #{ __('Delete') }
               input#confirm-delete(type='hidden', value="#{ __('confirm-shop-delete') }")
               input#cancel(type='hidden', value="#{ __('Cancel') }")
               input#continue(type='hidden', value="#{ __('Continue!') }")

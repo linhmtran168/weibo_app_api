@@ -4,7 +4,7 @@ block content
   .tab-bar
     ul.nav.nav-tabs
       li
-        a.border-link(href='/shops') 
+        a.border-link(href='/admin/shops') 
           | #{ __('list-shop') }
 
       li.active
@@ -20,7 +20,7 @@ block content
             p=message
 
     .row
-      form.form-horizontal.create-shop-form(action='/shop/create', method='POST', enctype='multipart/form-data')
+      form.form-horizontal.create-shop-form(action='/admin/shop/create', method='POST', enctype='multipart/form-data')
         fieldset
           legend #{ __('form-shop-detail') }
           .control-group
