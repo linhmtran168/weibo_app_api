@@ -5962,3 +5962,9 @@ body {
   margin-bottom: 10px;
   margin-right: 10px;
 }
+.edit-shop-form .map-legend {
+  margin-top: 20px;
+}
+.edit-shop-form .map-edit-shop {
+  text-align: center;
+}

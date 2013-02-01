@@ -120,6 +120,11 @@ exports.validateEditShop = function(req, res, next) {
     req.check('openingHours', i18n.__('wrong-time-format')).regex(/^([01][0-9]|2[0-3]):[0-5][0-9] - ([01][0-9]|2[0-3]):[0-5][0-9]$/i);
   }
 
+  if (req.body.long || req.body.lat) {
+    req.check('long', i18n.__('Invalid longitude')).isFloat().min(-180).max(180);
+    req.check('lat', i18n.__('Invalid latitude')).isFloat().min(-90).max(90);
+  }
+
   // Create the maped errors array
   var errors = req.validationErrors(true);
   var msgArray = [];

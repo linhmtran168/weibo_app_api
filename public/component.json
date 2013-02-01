@@ -8,6 +8,7 @@
     "lodash": "~1.0.0-rc.3",
     "jasny-bootstrap": "/Users/mb985/Downloads/jasny-bootstrap",
     "jqBootstrapValidation": "/Users/mb985/Downloads/jqBootstrapValidation",
-    "bootbox": "~3.0.0"
+    "bootbox": "~3.0.0",
+    "jquery-addresspicker": "git://github.com/elmariachi111/jquery-addresspicker.git"
   }
 }

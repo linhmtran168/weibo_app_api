@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>jquery-addresspicker</title>
+
+    <link rel="stylesheet" href="../lib/bootstrap.min.css">
+	<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+	<script src="../lib/jquery-1.8.3.min.js"></script>
+    <script src="../lib/bootstrap-typeahead.min.js"></script>
+	<script src="../src/jquery.addresspicker.min.js"></script>
+
+    <script>
+	$(function() {
+		var addresspicker = $( "#addresspicker" ).addresspicker();
+		var addresspickerMap = $( "#addresspicker_map" ).addresspicker(
+        {
+			regionBias: "de",
+            map:      "#map_canvas",
+            typeaheaddelay: 1000,
+            mapOptions: {
+                zoom:16,
+                center: new google.maps.LatLng(52.5122, 13.4194)
+            }
+
+		});
+
+        addresspickerMap.on("addressChanged", function(evt, address) {
+           console.dir(address);
+        });
+        addresspickerMap.on("positionChanged", function(evt, markerPosition) {
+            markerPosition.getAddress( function(address) {
+                if (address) {
+                    $( "#addresspicker_map").val(address.formatted_address);
+                }
+            })
+        });
+	});
+	</script>
+</head>
+<body>
+<a href="https://github.com/elmariachi111/jquery-addresspicker">
+    <img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_green_007200.png" alt="Fork me on GitHub">
+</a>
+
+
+<div class="container">
+
+  <h1>jquery-addresspicker <small>(as a Bootstrap JQuery Plugin)</small></h1>
+  
+    <p>
+    I forked this project from <a href="https://github.com/sgruhier/jquery-addresspicker">sgruhier</a> who has built a simple
+        address picker on top of JQuery UI Autocomplete. Since I don't want the overhead of JQUI and am stuck with
+        <a href="http://twitter.github.com/bootstrap/">Bootstrap</a> I chose to rewrite his plugin. </p>
+
+
+    <h2>Simple Addresspicker</h2>
+    <p> The addresspicker is a plain JQuery plugin and follows mostly concepts known to Bootstrap users.
+        I'm using Bootstrap <a href="http://twitter.github.com/bootstrap/javascript.html#typeahead">typeahead</a> filled by anonymous google map geocoder suggestions.<br/>
+        Try to enter an address like <i>Berlin Kreuzberg</i>, <i>Manhattan Central Park</i> or <i>London Soho</i> and you'll see suggests
+    </p>
+    <div class="well">
+        <label>Address: </label><input id="addresspicker" />
+    </div>
+
+    <p>
+        <code>
+            var addresspicker = $( "#addresspicker" ).addresspicker();
+        </code>
+    </p>
+
+    <h2>Addresspicker with map</h2>
+    <p>
+        You can drag and drop the marker to the correct location. The input field address is then updated again according
+        to a reverse Geocoding result. Note that I'm using JQuery events to notify you on address and marker position changes
+    </p>
+
+    <div class="well">
+        <div style="float:right"> try: <i>Berlin Kreuzberg</i>, <i>Manhattan Central Park</i> or <i>London Soho</i><br/>
+            Then try to move the marker on the map and see how the address changes. Magic. </div>
+        <label>Address: </label>
+        <input id="addresspicker_map" />
+        <div style="width:300px;height:300px;margin-top:20px">
+            <div id="map_canvas" style="width:100%; height:100%"></div>
+            <div id="location" class=""></div>
+        </div>
+
+    </div>
+
+    <pre class="pre-scrollable prettyprint">
+        var addresspickerMap = $( "#addresspicker_map" ).addresspicker(
+        {
+            regionBias: "de",
+            map:      "#map_canvas",
+            typeaheaddelay: 1000,
+            mapOptions: {
+                zoom:16,
+                center: new google.maps.LatLng(52.5122, 13.4194)
+            }
+        });
+
+        addresspickerMap.on("addressChanged", function(evt, address) {
+           console.dir(address); //do something with the address. It's a Google Geocoder result
+        });
+
+        //markerPosition is a LatLng that I augmented with an getAddress function for convenience
+        //getAddress triggers a reverse geocode request.
+
+        addresspickerMap.on("positionChanged", function(evt, markerPosition) {
+            markerPosition.getAddress( function(address) {
+                if (address) { //address is a Google Geocoder result
+                    $( "#addresspicker_map").val(address.formatted_address);
+                }
+            })
+        });
+	});
+
+    </pre>
+
+
+
+    <h2>Features to notice</h2>
+    <p> The Bootstrap 2.2 Typeahead plugin doesn't know anything about timeouts, delays or complex return objects.
+        I modified (<a href="" target="_blank">pull request</a> is pending) the Bootstrap Typeahead code therefore.
+        On this page my fork of Typeahead is included, it contains two new features:
+        <ul>
+            <li><strong>Complex objects</strong> The results of the Google Geocoding request are stored when an item is selected
+            (obvious for JQUI users, not so in Bootstrap)</li>
+            <li><strong>Delayed remote source requests</strong> Usually Bootstrap Typeahead queries a remote source
+            on <em>keydown</em>. I added a delay proxy so we're not overloading the Google Geocoder with Autocompletion requests.
+            You can adjust the addresspicker request delay by modifying the <code>typeaheaddelay</code> parameter.
+            </li>
+        </ul>
+    </p>
+    <h2>Usage / Download</h2>
+    Make sure, you have included the Google Maps Javascript API:
+    <code>&lt;script src="https://maps.googleapis.com/maps/api/js?sensor=false"&gt;&lt;/script&gt;</code>
+    The only dependency is Bootstrap.css and the <a href="../lib/bootstrap-typeahead.js">modified Bootstrap Typeahead JQuery plugin</a>
+
+    <ul>
+        <li>You can get the addresspicker plugin from github: <a href="https://raw.github.com/elmariachi111/jquery-addresspicker/master/src/jquery.addresspicker.js">Original</a>
+            / <a href="https://raw.github.com/elmariachi111/jquery-addresspicker/master/src/jquery.addresspicker.js">Minified</a> </li>
+        <li>Your usual Bootstrap won't work here since I overrode Typeahead. I think it's safe to patch it with
+        my single <a href="https://github.com/elmariachi111/bootstrap/blob/2.2.2-wip/js/bootstrap-typeahead.js">Typeahead</a> (untested, nothing else changed). It's
+        also included in this repo in the lib folder </li>
+    </ul>
+    <h2>Open</h2>
+    <p>What I actually wanted to create is a popover like the incredible <a href="http://www.eyecon.ro/bootstrap-datepicker/" target="_blank">Bootstrap Datepicker</a>. The state I've reached
+    is sufficient for me but if you want, go ahead and fork me. </p>
+</div>
+
+</body>
+</html>

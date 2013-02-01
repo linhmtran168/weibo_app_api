@@ -81,10 +81,14 @@
 	"Korean": "Korean",
 	"near-station": "Near Stations",
 	"Station": "Station",
-  "custom-fields": "Custom Fields",
+	"custom-fields": "Custom Fields",
 	"custom-field": "Field",
 	"custom-field-value": "Custom Field Value",
 	"need-one-lang": "need-one-lang",
 	"need-one-pay-opt": "need-one-pay-opt",
-	"custom-field-error": "custom-field-error"
+	"custom-field-error": "custom-field-error",
+	"set-location": "Set Shop Location",
+	"Save": "Save",
+	"Invalid longitude": "Invalid longitude",
+	"Invalid latitude": "Invalid latitude"
 }

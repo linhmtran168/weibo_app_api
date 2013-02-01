@@ -221,6 +221,14 @@ module.exports = {
 
       shop.customFields = fields;
 
+      // Update location
+      if (req.body.long && req.body.lat) {
+        var lnglat = [parseFloat(req.body.long), parseFloat(req.body.lat)];
+        shop.location.coords = lnglat;
+        if (req.body.geoAddress) {
+          shop.location.geoAddress = req.body.geoAddress;
+        }
+      }
 
       // If there is no new avatar
       if (!req.files.avatar.name) {
