@@ -3,62 +3,9 @@ var Shop = require('../../models/shop')
   , _ = require('lodash')
   , bcrypt = require('bcrypt')
   , shopHelpers = require('../helpers/shop')
+  , imgHelpers = require('../helpers/image')
   , i18n = require('i18n');
 
-// Helper function to save shop & shop admin
-function saveShopAndAdmin(req, res, avatar) {
-  bcrypt.hash(req.body.password, 10, function(err, hash) {
-    if (err) {
-      console.error(err);
-      return res.redirect(500, 'back');
-    }
-
-    // Create new shop instance
-    var shop = new Shop({
-      name: req.body.shopName,
-    });
-
-    if (req.body.description) {
-      shop.description = req.body.description;
-    }
-    if (avatar) {
-      shop.avatar = avatar;
-    }
-
-    // console.log(req.body.username + ' - ' + hash);
-    // Create new shop admin instance
-    var shopAdmin = new Admin({
-      username: req.body.username,
-      hash: hash,
-      role: 'shopAdmin'
-    });
-
-    // Attemp to save the shop admin
-    shopAdmin.save(function(err) {
-      if (err) {
-        console.error(err);
-        return res.redirect(500, 'back');
-      }
-
-      // Add the admin's id to the shop
-      shop.admin = shopAdmin.id;
-
-      console.log(shop);
-      // Attempt to save the shop
-      shop.save(function(err) {
-        if (err) {
-          console.error(err);
-          return res.redirect(500, 'back');
-        }
-
-        console.log('Save shop & shop admin successfully');
-        
-        req.flash('message', { type: 'success', messages: [i18n.__('create-shop-success')] });
-        return res.redirect('/shops');
-      });
-    });
-  });
-}
 
 /*
  * Route for creating data for test
@@ -117,6 +64,9 @@ module.exports = {
     });
   },
 
+  /* 
+   * Info for super admin
+   */
   info: function(req, res) {
     // GET the shop id from the request
     var shopId = req.params.id;
@@ -128,7 +78,6 @@ module.exports = {
         }
       }
 
-      console.log(shop);
 
       if (!shop) {
         req.flash('message', { type: 'error', messages: [ i18n.__('no-shop-id') ] });
@@ -137,11 +86,15 @@ module.exports = {
 
       return res.render('shop/info', {
         shop: shop,
-        title: shop.name
+        title: shop.name,
+        msg: req.flash('message')[0]
       });
     });
   },
 
+  /*
+   *
+   */
   detail: function(req, res) {
 
   },
@@ -164,10 +117,10 @@ module.exports = {
     // Check for image file in the request
     if (!req.files.avatar.name) {
       // save shop & shop admin
-      saveShopAndAdmin(req, res, null);
+      shopHelpers.saveShopAndAdmin(req, res, null);
     } else {
       console.log('Shop ---- upload image for shop');
-      shopHelpers.uploadImage(req.files.avatar, function(err, newAvatarName) {
+      imgHelpers.uploadImage(req.files.avatar, function(err, newAvatarName) {
         if (err) {
           if (err.type === 'system') {
             return res.redirect(500, 'back');
@@ -178,13 +131,97 @@ module.exports = {
         }
 
         // Save shop & shop admin
-        saveShopAndAdmin(req, res, newAvatarName);
+        shopHelpers.saveShopAndAdmin(req, res, newAvatarName);
       });
     }
   },
 
-  edit: function(req, res) {
+  /*
+   * Edit shop super admin
+   */
+  editSuper: function(req, res) {
+    // GET the shopID
+    var shopId = req.params.id;
 
+    Shop.findById(shopId, function(err, shop) {
+      if (err) {
+        console.err(err);
+        return res.redirect(500, 'back');
+      }
+
+      if (!shop) {
+        req.flash('message', { type: 'error', messages: [ i18n.__('no-shop-id') ] });
+        return res.redirect('back');
+      }
+
+      // GET request, render the edit page
+      if (req.method !== 'POST') {
+        return res.render('shop/editSuper', {
+          title: shop.name + ' ' + i18n.__('Edit'),
+          shop: shop,
+          msg: req.flash('message')[0]
+        });
+      }
+
+      // POST request, handle to update the shop
+      shop.name = req.body.shopName;
+      if (req.body.description) {
+        shop.description = req.body.description;
+      }
+
+      // If there is no image in the request
+      if (!req.files.avatar.name) {
+        // If there is no password for shop admin
+        if (!req.body.password) {
+          shop.save(function(err) {
+            if (err) {
+              console.error(err);
+              return res.redirect(500, 'back');
+            }
+
+            // Create the successful message and redirect
+            req.flash('message', { type: 'success', messages: [ i18n.__('update-shop-success') ] });
+            return res.redirect('/shop/info/' + shop.id);
+          });
+        } else {
+          // If there is password field, find the shop admin and update
+          shopHelpers.editShopAndAdmin(shop, req, res, null);
+        }
+      } else {
+        // If there is a file in the request;
+        imgHelpers.uploadImage(req.files.avatar, function(err, newAvatarName) {
+          if (err) {
+            if (err.type === 'system') {
+              return res.redirect(500, 'back');
+            }
+            req.flash('message', { type: 'error', messages: [err.message] });
+            return res.redirect('back');
+          }
+
+          // If there is no password in the request
+          if (!req.body.password) {
+            // Delete old image;
+            imgHelpers.deleteImage(shop.avatar);
+
+            shop.avatar = newAvatarName;
+
+            shop.save(function(err) {
+              if (err) {
+                console.error(err);
+                return res.redirect(500, 'back');
+              }
+
+              // Create the successful message and redirect
+              req.flash('message', { type: 'success', messages: [ i18n.__('update-shop-success') ] });
+              return res.redirect('/shop/info/' + shop.id);
+            });
+          } else {
+            // Find the shop admin and update
+            shopHelpers.editShopAndAdmin(shop, req, res, newAvatarName);
+          }
+        });
+      }
+    });
   },
 
   delete: function(req, res) {
@@ -200,7 +237,7 @@ module.exports = {
       console.log('Shop - successfully deleted the shop');
 
       // Delete the shop photo
-      shopHelpers.deleteImage(shop.avatar);
+      imgHelpers.deleteImage(shop.avatar);
 
       // Delete the admin user of the shop
       Admin.findByIdAndRemove(shop.admin, function(err, admin) {

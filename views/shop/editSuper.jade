@@ -1,0 +1,73 @@
+extends ../layout
+
+block content
+  .tab-bar
+    ul.nav.nav-tabs
+      li
+        a.border-link(href='/shops') 
+          | #{ __('list-shop') }
+
+      li
+        a.border-link(href='/shop/info/#{ shop.id }') 
+          | #{ shop.name }'s #{ __('Information') }
+      li.active
+        a.border-link(href='/shop/admin/edit')
+          | #{ shop.name } #{ __('Edit') }
+
+  .content-container.content-border-left
+    if typeof msg !== 'undefined'
+      .row
+        .alert.alert-error.shop-edit-super-alert
+          button.close(type='button', data-dismiss='alert') x
+          for message in msg.messages
+            p=message
+
+    .row
+      form.form-horizontal.edit-shop-super(action='/shop/admin/edit/#{ shop.id }', method='POST', enctype='multipart/form-data')
+        fieldset
+          legend #{ __('form-shop-detail') }
+          p.muted 
+            em #{ __('edit-shop-notice') }
+          .control-group
+            label.control-label(for='avatar') #{ __('shop-avatar') }
+            .controls
+              .fileupload.fileupload-new(data-provides='fileupload')
+                .fileupload-new.thumbnail.align-image
+                  img.span4(src='/images/#{ shop.avatar }')
+                .fileupload-preview.fileupload-exists.thumbnail.uploaded-image
+                .image-buttons
+                  span.btn.btn-file
+                    span.fileupload-new #{ __('choose-image') }
+                    span.fileupload-exists #{ __('Change') }
+                    input(type='file', name='avatar')
+
+                  a.btn.fileupload-exists(href='#', data-dismiss='fileupload') #{ __('Remove') }
+
+          .control-group
+            label.control-label(for='shopName') #{ __('shop-name') }
+            .controls
+              input.input-xlarge(type='text', name='shopName', placeholder="#{ __('shop-name') }", required, data-validation-required-message="#{ __('shop-name-required') }", value='#{ shop.name }')
+              p.help-block
+          .control-group
+            label.control-label(for='description') #{ __('Description') }
+            .controls
+              textarea(rows='3', placeholder="#{ __('Description') }", name='description', value='#{ shop.description }')
+
+        fieldset
+          legend #{ __('shop-admin-edit-pass') }
+          .control-group
+            label.control-label(for='password') #{ __('Password') }
+            .controls
+              input.input-xlarge(type='password', name='password', placeholder="#{ __('Password') }", data-validation-minlength-message="#{ __('invalid-password-minlength') }")
+              p.help-block
+          .control-group
+            label.control-label(for='passwordConfirm') #{ __('password-confirm') }
+            .controls
+              input.input-xlarge(type='password', name='passwordConfirm', placeholder="#{ __('password-confirm') }", data-validation-match-match='password', data-validation-match-message="#{ __('confirm-password-match') }")
+              p.help-block
+
+        fieldset
+          .control-group
+            .controls
+              button.btn.btn-large.btn-primary(type='submit') #{ __('edit-shop') }
+              input(type='hidden', name='_csrf', value=token)

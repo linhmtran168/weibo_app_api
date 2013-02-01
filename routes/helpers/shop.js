@@ -75,76 +75,126 @@ exports.validateShopAdmin = function(req, res, next) {
   });
 };
 
-// Upload image for shop
-exports.uploadImage = function(file, callback) {
-  var tmpPath = file.path
-    , oldName = file.name
-    , extension, newName, newPath
-    , allowed_extensions = ['.gif', '.GIF', '.png', '.jpeg', '.jpg', '.JPG', '.JPEG'];
-
-    // Get the extesion of the file
-    extension = oldName.substr(oldName.lastIndexOf('.'));
-
-    // Check extension
-    if (!_.contains(allowed_extensions, extension)) {
-      var err = {
-        type: 'extension', 
-        message: i18n.__('wrong-file-type')
-      };
-
-      return callback(err, false);
-    }
-
-    // Create the new image name by hashing the file path
-    newName = crypto.createHash('md5').update(tmpPath).digest('hex') + extension;
-
-    // Create the new path for the image
-    newPath = './public/images/' + newName;
-
-    // Try to upload the image
-    fs.rename(tmpPath, newPath, function(err) {
-      if (err) {
-        console.error(err);
-        var error = {
-          type: 'system',
-          message: i18n.__('system-error')
-        };
-
-        return callback(error, false);
-      }
-      
-
-      // Delete the temporary image
-      fs.unlink(tmpPath, function(err) {
-        if (err) {
-          console.error(err);
-        }
-
-        console.log('Deleted the temporary image');
-        return;
-      });
-
-      // Return the new name of the image
-      return callback(null, newName);
-    });
-};
-
-// Delete image for shop
-exports.deleteImage = function(fileName) {
-  // If default image, do not delete
-  if (fileName === 'no_image.png') {
-    return;
+exports.validateEditShopSuper = function(req, res, next) {
+  // Validate field
+  req.check('shopName', i18n.__('shop-name-required'));
+  if (req.body.password) {
+    req.check('password', i18n.__('invalid-password')).len(6, 20);
+    req.check('passwordConfirm', i18n.__('invalid-pasword-confirm')).equals(req.body.password);
   }
 
-  var photoPath = './public/images/';
 
-  // Delete the  photo
-  fs.unlink(photoPath + fileName, function(err) {
+  // Create the maped errors array
+  var errors = req.validationErrors(true);
+  var msgArray = [];
+
+  if (!_.isEmpty(errors)) {
+    msgArray = _.map(errors, function(error) {
+      return error.msg;
+    });
+  }
+
+  if (!_.isEmpty(msgArray)) {
+    req.flash('message', { type: 'error' , messages: msgArray });
+    return res.redirect('back');
+  }
+
+  return next();
+};
+
+// Helper function to save shop & shop admin
+exports.saveShopAndAdmin = function(req, res, avatar) {
+  bcrypt.hash(req.body.password, 10, function(err, hash) {
     if (err) {
       console.error(err);
-      return;
+      return res.redirect(500, 'back');
     }
 
-    console.log('Photo - successfully delete the photo');
+    // Create new shop instance
+    var shop = new Shop({
+      name: req.body.shopName,
+    });
+
+    if (req.body.description) {
+      shop.description = req.body.description;
+    }
+    if (avatar) {
+      shop.avatar = avatar;
+    }
+
+    // console.log(req.body.username + ' - ' + hash);
+    // Create new shop admin instance
+    var shopAdmin = new Admin({
+      username: req.body.username,
+      hash: hash,
+      role: 'shopAdmin'
+    });
+
+    // Attemp to save the shop admin
+    shopAdmin.save(function(err) {
+      if (err) {
+        console.error(err);
+        return res.redirect(500, 'back');
+      }
+
+      // Add the admin's id to the shop
+      shop.admin = shopAdmin.id;
+
+      console.log(shop);
+      // Attempt to save the shop
+      shop.save(function(err) {
+        if (err) {
+          console.error(err);
+          return res.redirect(500, 'back');
+        }
+
+        console.log('Save shop & shop admin successfully');
+        
+        req.flash('message', { type: 'success', messages: [i18n.__('create-shop-success')] });
+        return res.redirect('/shops');
+      });
+    });
+  });
+};
+
+// Helper function to edit shop & admin
+exports.editShopAndAdmin = function(shop, req, res, avatar) {
+
+  if (avatar) {
+    // Delete old image
+    shopHelpers.deleteImage(shop.avatar);
+    shop.avatar = avatar;
+  }
+
+  Admin.findById(shop.admin, function(err, shopAdmin) {
+    if (err) {
+      console.error(err);
+      return res.redirect(500, 'back');
+    }
+
+    // Hash the new password
+    bcrypt.hash(req.body.password, 10, function(err, hash) {
+      if (err) {
+        console.error(err);
+        return res.redirect(500, 'back');
+      }
+
+      shopAdmin.hash = hash;
+
+      // Attempt to save the shop admin
+      shopAdmin.save(function(err) {
+        if (err) {
+          console.error(err);
+          return res.redirect(500, 'back');
+        }
+
+        // Attemp to save the sop
+        shop.save(function(err) {
+          // Create the successful message and redirect
+          req.flash('message', { type: 'success', messages: [ i18n.__('update-shop-success') ] });
+          return res.redirect('/shop/info/' + shop.id);
+        });
+      });
+    });
   });
 };

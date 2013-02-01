@@ -7,10 +7,17 @@ block content
         a.border-link(href='/shops') 
           | #{ __('list-shop') }
       li.active
-        a.border-link(href='#') 
+        a.border-link(href='/shop/info/#{ shop.id }') 
           | Shop's #{ __('Information') }
 
   .content-container.content-border-left
+    if typeof msg !== 'undefined'
+      .row
+        .alert.shop-create-alert(class='alert-#{ msg.type }')
+          button.close(type='button', data-dismiss='alert') x
+          for message in msg.messages
+            p=message
+
     .shop-container
       .shop-image.span4
         img.img-polaroid(src='/images/#{shop.avatar}')
@@ -37,7 +44,7 @@ block content
 
         .row
           .shop-operation
-            a.btn.btn-info.offset1.span1(href='#') #{ __('Edit') }
+            a.btn.btn-info.offset1.span1(href='/shop/admin/edit/#{ shop.id }') #{ __('Edit') }
             a#delete-shop.btn.btn-danger.span1(href='/shop/delete/#{ shop.id }') #{ __('Delete') }
             input#confirm-delete(type='hidden', value="#{ __('confirm-shop-delete') }")
             input#cancel(type='hidden', value="#{ __('Cancel') }")

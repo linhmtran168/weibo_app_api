@@ -46,6 +46,10 @@ module.exports = function(app) {
   // Get a shop
   app.get('/shop/info/:id', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin], shopCtrl.info);
 
+  // Edit shop
+  app.get('/shop/admin/edit/:id', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin, requestHelpers.csrf], shopCtrl.editSuper);
+  app.post('/shop/admin/edit/:id', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin, shopHelpers.validateEditShopSuper], shopCtrl.editSuper);
+
   // Delete a shop
   app.get('/shop/delete/:id', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin], shopCtrl.delete);
   /*

@@ -51,5 +51,10 @@
 	"confirm-shop-delete": "Delete the shop will also delete the shop admin! Do you still want to continue?",
 	"Cancel": "Cancel",
 	"Continue!": "Continue!",
-	"shop-deleted": "Success fully deleted the shop"
+	"shop-deleted": "Success fully deleted the shop",
+	"password-confirm-required": "Password confirmation is required",
+	"edit-shop-notice": "Super admin can only edit shop's basic information",
+	"shop-admin-edit-pass": "Change Shop Admin Password",
+	"edit-shop": "edit-shop",
+	"update-shop-success": "update-shop-success"
 }

@@ -5900,3 +5900,29 @@ body {
 .shop-container .shop-operation {
   margin-top: 10px;
 }
+/* Edit shop super admin */
+.shop-edit-super-alert {
+  margin: 10px auto 0px;
+  width: 400px;
+}
+.edit-shop-super {
+  margin: 20px auto 50px auto;
+  max-width: 500px;
+}
+.edit-shop-super .fileupload a.fileupload-exists {
+  margin-left: 10px;
+}
+.edit-shop-super legend {
+  margin-left: 20px;
+  padding-left: 10px;
+}
+.edit-shop-super textarea {
+  width: 270px;
+}
+.edit-shop-super button[type='submit'] {
+  margin-top: 20px;
+}
+.edit-shop-super .muted {
+  margin-left: 100px;
+  margin-bottom: 20px;
+}

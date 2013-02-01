@@ -63,7 +63,7 @@ block content
           .control-group
             label.control-label(for='passwordConfirm') #{ __('password-confirm') }
             .controls
-              input.input-xlarge(type='password', name='passwordConfirm', placeholder="#{ __('password-confirm') }", required, data-validation-match-match='password', data-validation-match-message="#{ __('confirm-password-match') }")
+              input.input-xlarge(type='password', name='passwordConfirm', placeholder="#{ __('password-confirm') }", required, data-validation-required-message="#{ __('password-confirm-required') }", data-validation-match-match='password', data-validation-match-message="#{ __('confirm-password-match') }")
               p.help-block
 
         fieldset
