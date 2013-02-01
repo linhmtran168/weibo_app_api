@@ -99,12 +99,24 @@ exports.validateAdmin = function(req, res, next) {
 };
 
 /*
- * Middleware to check if a user is a admin or not
+ * Middleware to check if a user is a super admin or not
  */
 exports.isSuperAdmin = function(req, res, next) {
   // If this user is not super admin, redirect to main shop detail page
   if (req.user.role !== 'superAdmin') {
     return res.redirect('/shop');
+  }
+
+  next();
+};
+
+/*
+ * Middleware to check if a user is shop admin or not
+ */
+exports.isShopAdmin = function(req, res, next) {
+  // If this user is not super admin, redirect to main shop detail page
+  if (req.user.role !== 'shopAdmin') {
+    return res.redirect('/');
   }
 
   next();

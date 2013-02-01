@@ -3,14 +3,20 @@ extends ../layout
 block content
   .tab-bar
     ul.nav.nav-tabs
-      li
-        a.border-link(href='/shops') 
-          | #{ __('list-shop') }
-      li.active
-        a.border-link(href='/shop/info/#{ shop.id }') 
-          | Shop's #{ __('Information') }
+      if currentUser.role === 'superAdmin'
+        li
+          a.border-link(href='/shops') 
+            | #{ __('list-shop') }
+        li.active
+          a.border-link(href='/shop/info/#{ shop.id }') 
+            | Shop's #{ __('Information') }
+      else
+        li.active
+          a.border-link(href='/shop')
+            | #{ __('your-shop') }
+          
 
-  .content-container.content-border-left
+  .content-container(class="#{ currentUser.role === 'superAdmin' ? 'content-border-left' : '' }")
     if typeof msg !== 'undefined'
       .row
         .alert.shop-create-alert(class='alert-#{ msg.type }')
@@ -25,28 +31,30 @@ block content
       .span6.shop-info
         .row
           p.shop-legend #{ __('shop-info') }
-          table.table
-            tr
-              td
-                strong #{ __('shop-name') }:
-              td
-                | #{ shop.name }
-            tr
-              td
-                strong #{ __('shop-description') }:
-              td
-                | ABCXYZ 
-            tr
-              td
-                strong #{ __('shop-admin') }:
-              td
+          dl.dl-horizontal
+            dt
+              | #{ __('shop-name') }:
+            dd
+              | #{ shop.name }
+            dt
+              | #{ __('shop-description') }:
+            dd
+              | #{ shop.description }
+            if currentUser.role === 'superAdmin'
+              dt
+                | #{ __('shop-admin') }:
+              dd
                 | #{ shop.admin.username }
 
         .row
           .shop-operation
-            a.btn.btn-info.offset1.span1(href='/shop/admin/edit/#{ shop.id }') #{ __('Edit') }
-            a#delete-shop.btn.btn-danger.span1(href='/shop/delete/#{ shop.id }') #{ __('Delete') }
-            input#confirm-delete(type='hidden', value="#{ __('confirm-shop-delete') }")
-            input#cancel(type='hidden', value="#{ __('Cancel') }")
-            input#continue(type='hidden', value="#{ __('Continue!') }")
+            if currentUser.role === 'superAdmin'
+              a.btn.btn-info.offset1.span1(href='/shop/admin/edit/#{ shop.id }') #{ __('Edit') }
+            else
+              a.btn.btn-info.offset1.span1(href='/shop/edit') #{ __('Edit') }
+            if currentUser.role === 'superAdmin'
+              a#delete-shop.btn.btn-danger.span1(href='/shop/delete/#{ shop.id }') #{ __('Delete') }
+              input#confirm-delete(type='hidden', value="#{ __('confirm-shop-delete') }")
+              input#cancel(type='hidden', value="#{ __('Cancel') }")
+              input#continue(type='hidden', value="#{ __('Continue!') }")
 

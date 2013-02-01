@@ -1,0 +1,186 @@
+extends ../layout
+
+block content
+  .tab-bar
+    ul.nav.nav-tabs
+      li
+        a.border-link(href='/shop') 
+          | #{ __('your-shop') }
+      li.active
+        a.border-link(href='/shop/edit')
+          | #{ __('edit-your-shop') } 
+
+  .content-container.content-border-left
+    if typeof msg !== 'undefined'
+      .row
+        .alert.alert-error.shop-edit-alert
+          button.close(type='button', data-dismiss='alert') x
+          for message in msg.messages
+            p=message
+
+    .row
+      form.form-horizontal.edit-shop-form(action='/shop/edit', method='POST', enctype='multipart/form-data')
+        fieldset
+          legend #{ __('form-shop-detail') }
+          .control-group
+            label.control-label(for='avatar') #{ __('shop-avatar') }
+            .controls
+              .fileupload.fileupload-new(data-provides='fileupload')
+                .fileupload-new.thumbnail.align-image
+                  img.span4(src='/images/#{ shop.avatar }')
+                .fileupload-preview.fileupload-exists.thumbnail.uploaded-image
+                .image-buttons
+                  span.btn.btn-file
+                    span.fileupload-new #{ __('choose-image') }
+                    span.fileupload-exists #{ __('Change') }
+                    input(type='file', name='avatar')
+
+                  a.btn.fileupload-exists(href='#', data-dismiss='fileupload') #{ __('Remove') }
+
+          .control-group
+            label.control-label(for='shopName') #{ __('shop-name') }
+            .controls
+              input.input-xlarge(type='text', name='shopName', placeholder="#{ __('shop-name') }", required, data-validation-required-message="#{ __('shop-name-required') }", value='#{ shop.name }')
+              p.help-block
+
+          .control-group
+            label.control-label(for='description') #{ __('Description') }
+            .controls
+              textarea(rows='3', placeholder="#{ __('Description') }", name='description', value='#{ shop.description }')
+
+          .control-group
+            label.control-label(for='address') #{ __('Address') }
+            .controls
+              input.input-xlarge(type='text', name='address', placeholder="#{ __('Address') }")
+
+          .control-group
+            label.control-label(for='phoneNumber') #{ __('phone-number') }
+            .controls
+              input.input-xlarge(type='text', name='phoneNumber', placeholder="#{ __('phone-number') }", data-validation-regex-regex='[0-9]+', data-validation-regex-message="#{ __('invalid-phone-num') }")
+
+          .control-group
+            label.control-label(for='openingHours') #{ __('opening-hour') }
+            .controls
+              input.input-xlarge(type='text', name='openingHours', placeHolder="#{ __('Format') }: 09:00 - 21:30", data-validation-regex-regex="([01][0-9]|2[0-3]):[0-5][0-9] - ([01][0-9]|2[0-3]):[0-5][0-9]", data-validation-regex-message="#{ __('wrong-time-format') }")
+
+          .control-group
+            label.control-label(for='payOptions') #{ __('payment-options') }
+            .controls
+              table
+                tr
+                  td
+                    label.checkbox.checkbox-label
+                      input(type='checkbox', value="Cash", name='payOptions[]') 
+                      | #{ __('現金') }
+                  td
+                    label.checkbox.checkbox-label
+                      input(type='checkbox', value="UnionPay", name='payOptions[]')
+                      | #{ __('銀聯') }
+                  td
+                    label.checkbox.checkbox-label
+                      input(type='checkbox', value="VISA", name='payOptions[]')
+                      | #{ __('VISA') }
+                tr
+                  td
+                    label.checkbox.checkbox-label
+                      input(type='checkbox', value="Master", name='payOptions[]')
+                      | #{ __('Master') }
+                  td
+                    label.checkbox.checkbox-label
+                      input(type='checkbox', value="JCB", name='payOptions[]')
+                      | #{ __('JCB') }
+                  td
+                    label.checkbox.checkbox-label
+                      input(type='checkbox', value="AMEX", name='payOptions[]')
+                      | #{ __('AMEX') }
+                tr
+                  td
+                    label.checkbox.checkbox-label
+                      input(type='checkbox', value="Other", name='payOptions[]')
+                      | #{ __('Other') }
+
+          .control-group
+            label.control-label(for='wifi') #{ __('Wifi') }
+            .controls
+              table
+                tr
+                  td
+                    label.radio.radio-label
+                      input(type='radio', name='wifi', value='yes')
+                      | Yes
+                  td
+                    label.radio.radio-label
+                      input(type='radio', name='wifi', value='no')
+                      | No
+
+          .control-group
+            label.control-label(for='languages') #{ __('Languges') }
+            .controls
+              table
+                tr
+                  td
+                    label.checkbox.checkbox-label
+                      input(type='checkbox', value='Japanese', name='languages[]')
+                      | #{ __('Japanese') }
+                  td
+                    label.checkbox.checkbox-label
+                      input(type='checkbox', value='Chinese', name='languages[]')
+                      | #{ __('Chinese') }
+                  td
+                    label.checkbox.checkbox-label
+                      input(type='checkbox', value='English', name='languages[]')
+                      | #{ __('English') }
+                tr
+                  td
+                    label.checkbox.checkbox-label
+                      input(type='checkbox', value='Korean', name='languages[]')
+                      | #{ __('Korean') }
+                  td
+                    label.checkbox.checkbox-label
+                      input(type='checkbox', value='Other', name='languages[]')
+                      | #{ __('Other') }
+
+          .control-groups
+            label.control-label(for='station') #{ __('near-station') }
+            .controls.stations
+              input(type='text', name='station[]', placeholder="#{ __('Station') } 1")
+              input(type='text', name='station[]', placeholder="#{ __('Station') } 2")
+              input(type='text', name='station[]', placeholder="#{ __('Station') } 3")
+
+          .control-groups
+            label.control-label(for='customFields') #{ __('custom-field') }
+            .controls.custom-fields
+              table
+                tr
+                  td
+                    input.input-small(type='text', name='customField[0][]', placeholder="#{ __('custom-field') } 1")
+                  td
+                    input(type='text', name='customeField[0][]', placeholder="#{ __('custom-fiel-value') } 1")
+                tr
+                  td
+                    input.input-small(type='text', name='customField[1][]', placeholder="#{ __('custom-field') } 2")
+                  td
+                    input(type='text', name='customeField[1][]', placeholder="#{ __('custom-fiel-value') } 2")
+
+                tr
+                  td
+                    input.input-small(type='text', name='customField[2][]', placeholder="#{ __('custom-field') } 3")
+                  td
+                    input(type='text', name='customeField[2][]', placeholder="#{ __('custom-fiel-value') } 3")
+                tr
+                  td
+                    input.input-small(type='text', name='customField[3][]', placeholder="#{ __('custom-field') } 4")
+                  td
+                    input(type='text', name='customeField[3][]', placeholder="#{ __('custom-fiel-value') } 4")
+                tr
+                  td
+                    input.input-small(type='text', name='customField[4][]', placeholder="#{ __('custom-field') } 5")
+                  td
+                    input(type='text', name='customeField[4][]', placeholder="#{ __('custom-fiel-value') } 1")
+                      
+
+        fieldset
+          .control-group
+            .controls
+              button.btn.btn-large.btn-primary(type='submit') #{ __('edit-shop') }
+              input(type='hidden', name='_csrf', value=token)

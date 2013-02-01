@@ -51,7 +51,7 @@ block content
           .control-group
             label.control-label(for='description') #{ __('Description') }
             .controls
-              textarea(rows='3', placeholder="#{ __('Description') }", name='description', value='#{ shop.description }')
+              textarea(rows='3', placeholder="#{ __('Description') }", name='description')=shop.description
 
         fieldset
           legend #{ __('shop-admin-edit-pass') }

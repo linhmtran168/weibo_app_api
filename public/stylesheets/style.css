@@ -5891,11 +5891,8 @@ body {
   border: 0;
   border-bottom: 1px solid #e5e5e5;
 }
-.shop-container .shop-info table {
+.shop-container .shop-info dl {
   font-size: 15px;
-}
-.shop-container .shop-info table td {
-  border: none;
 }
 .shop-container .shop-operation {
   margin-top: 10px;
@@ -5925,4 +5922,42 @@ body {
 .edit-shop-super .muted {
   margin-left: 100px;
   margin-bottom: 20px;
+}
+/* Edit shop shop admin */
+.shop-edit-alert {
+  margin: 10px auto 0px;
+  width: 400px;
+}
+.edit-shop-form {
+  margin: 20px auto 50px auto;
+  max-width: 500px;
+}
+.edit-shop-form .fileupload a.fileupload-exists {
+  margin-left: 10px;
+}
+.edit-shop-form legend {
+  margin-left: 20px;
+  padding-left: 10px;
+}
+.edit-shop-form textarea {
+  width: 270px;
+}
+.edit-shop-form button[type='submit'] {
+  margin-top: 20px;
+}
+.edit-shop-form .checkbox-label {
+  width: 80px;
+}
+.edit-shop-form .radio-label {
+  width: 80px;
+}
+.edit-shop-form .stations {
+  margin-bottom: 20px;
+}
+.edit-shop-form .stations input {
+  margin-bottom: 10px;
+}
+.edit-shop-form .custom-fields input {
+  margin-bottom: 10px;
+  margin-right: 10px;
 }

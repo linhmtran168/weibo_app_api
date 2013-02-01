@@ -2,7 +2,9 @@
  * Helpers for shop related function
  */
 var Admin = require('../../models/admin')
+  , Shop = require('../../models/shop')
   , _ = require('lodash')
+  , bcrypt = require('bcrypt')
   , fs = require('fs')
   , crypto = require('crypto')
   , i18n = require('i18n');

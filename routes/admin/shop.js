@@ -96,7 +96,28 @@ module.exports = {
    *
    */
   detail: function(req, res) {
+    // Find the shop with the id of the current user
+    Shop.findOne({ admin: req.user.id }, function(err, shop) {
+      if (err) {
+        if (err.type === 'system') {
+          return res.redirect(500, 'back');
+        }
+      }
 
+      // If ther is no shop
+      if (!shop) {
+        req.flash('message', { type: 'error', messages: [ i18n.__('no-shop-id') ] });
+        return res.redirect('back');
+      }
+
+      console.log(shop);
+
+      return res.render('shop/info', {
+        shop: shop,
+        title: i18n.__('your-shop'),
+        msg: req.flash('message')[0]
+      });
+    });
   },
 
   /*
@@ -137,6 +158,34 @@ module.exports = {
   },
 
   /*
+   * Edit the shop that the current user is admin
+   */
+  editShop: function(req, res) {
+    // Get the shop
+    Shop.findOne({ admin: req.user.id }, function(err, shop) {
+      if (err) {
+        console.err(err);
+        return res.redirect(500, 'back');
+      }
+
+      // If ther is no shop
+      if (!shop) {
+        req.flash('message', { type: 'error', messages: [ i18n.__('no-shop-id') ] });
+        return res.redirect('back');
+      }
+
+      // GET request render the edit page
+      if (req.method !== 'POST') {
+        return res.render('shop/editShop', {
+          title: i18n.__('edit-your-shop'),
+          shop: shop,
+          msg: req.flash('message')[0]
+        });
+      }
+    });
+  },
+
+  /*
    * Edit shop super admin
    */
   editSuper: function(req, res) {
@@ -165,6 +214,7 @@ module.exports = {
 
       // POST request, handle to update the shop
       shop.name = req.body.shopName;
+      console.log(req.body.description);
       if (req.body.description) {
         shop.description = req.body.description;
       }

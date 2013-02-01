@@ -52,8 +52,16 @@ module.exports = function(app) {
 
   // Delete a shop
   app.get('/shop/delete/:id', [adminHelpers.ensureAuthenticated, adminHelpers.isSuperAdmin], shopCtrl.delete);
+
   /*
    * =========== Route for shop admin
    */
+  // Check user name
   app.get('/admin/check-username', adminHelpers.ensureAuthenticated, adminCtrl.checkUsername);
+
+  // Get admin's shop
+  app.get('/shop', [adminHelpers.ensureAuthenticated, adminHelpers.isShopAdmin], shopCtrl.detail);
+
+  // Render admin' edit shop page
+  app.get('/shop/edit', [adminHelpers.ensureAuthenticated, adminHelpers.isShopAdmin, requestHelpers.csrf], shopCtrl.editShop);
 };

@@ -10,10 +10,17 @@ var shopSchema = new Schema({
   name: { type: String, required: true, index: true },
   avatar: { type: String, default: 'no_image.png' },
   location: {
-    address: { type: String, index: true },
+    geoAddress: { type: String, index: true },
     coords: { type: Array, index: '2d' }
   },
   description: { type: String },
+  address: { type: String },
+  phoneNumber: { type: String },
+  paymentOpt: [String],
+  openingHours: String,
+  nearStations: [String],
+  language: String,
+  customFields: [ { name: String, value: String } ],
   createdAt: { type: Date, default: Date.now, index: true },
   updatedAt: { type: Date, default: Date.now, index: true },
 });

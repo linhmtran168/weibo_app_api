@@ -1,6 +1,9 @@
 $(function() {
-  // Initialize bootstrap validation for create shop form
-  $(".create-shop-form input").not("[type=submit]").not("[type=file]").jqBootstrapValidation(); 
+  // Initialize bootstrap validation for form
+  $(".create-shop-form input").not("[type=submit]").not("[type=file]").jqBootstrapValidation();
+  $(".edit-shop-form input").not("[type=submit]").not("[type=file]").jqBootstrapValidation();
+  $(".edit-shop-super input").not("[type=submit]").not("[type=file]").jqBootstrapValidation();
+
 
   // Create a confirmation box before deleting a shop
   $('#delete-shop').click(function(e) {
