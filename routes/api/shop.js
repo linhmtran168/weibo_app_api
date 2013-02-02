@@ -63,22 +63,14 @@ module.exports = {
       if (_.isEmpty(shops)) {
         return res.json({
           status: 1,
-          items: [],
+          shops: [],
           message: i18n.__('get-shops-success')
         });
       }
-      var items = _.map(shops, function(shop) {
-        var shopJSON = shop.toJSON();
-        var item = _.map(Object.keys(shopJSON), function(key) {
-          return { key: key, value: shopJSON[key] };
-        });
-
-        return item;
-      });
 
       return res.json({
         status: 1,
-        items: items,
+        shops: shops,
         messages: i18n.__('get-shop-success')
       });
     });

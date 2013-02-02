@@ -61,7 +61,9 @@ module.exports = {
 
           return res.json({
             status: 1,
-            items: [{ key: 'accessToken', value: user.accessToken }],
+            user: {
+              accessToken: user.accessToken
+            },
             message: i18n.__('success-get-token')
           });
         });
