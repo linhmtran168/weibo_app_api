@@ -229,8 +229,8 @@ block content
           .control-group
             .controls
               button.btn.btn-large.btn-primary(type='submit') #{ __('Save') }
-              input#long(type='hidden', name='long', value='#{ shop.location.coords[0] }')
-              input#lat(type='hidden', name='lat', value='#{ shop.location.coords[1] }')
+              input#long(type='hidden', name='long', value='#{ shop.location.coords[0] ? shop.location.coords[0] : '' }')
+              input#lat(type='hidden', name='lat', value='#{ shop.location.coords[1] ? shop.location.coords[1] : '' }')
               input#geo-address(type='hidden', name='geoAddress')
               input(type='hidden', name='_csrf', value=token)
 

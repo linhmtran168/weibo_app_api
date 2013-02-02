@@ -28,12 +28,12 @@ $(function() {
     // Render the marker
     addresspickerMap.addresspicker("reloadPosition");
 
-    addresspickerMap.on('addressChanged', function(evt, address) {
-      // Set the long/lat to the input
-      $('#lat').val(address.geometry.location.Ya);
-      $('#long').val(address.geometry.location.Za);
-      $('#geo-address').val(address.formatted_address);
-    });
+    // addresspickerMap.on('addressChanged', function(evt, address) {
+    //   // Set the long/lat to the input
+    //   $('#lat').val(address.geometry.location.Ya);
+    //   $('#long').val(address.geometry.location.Za);
+    //   $('#geo-address').val(address.formatted_address);
+    // });
 
     addresspickerMap.on('positionChanged', function(evt, markerPosition) {
       // Set the long/lat to the input
