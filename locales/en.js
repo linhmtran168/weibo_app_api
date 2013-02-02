@@ -103,7 +103,6 @@
 	"__v": "__v",
 	"_id": "_id",
 	"address": "Address",
-	"name": "Shop Name",
 	"phoneNumber": "Phone Number",
 	"languages": "Languages",
 	"isWifi": "Wifi",

@@ -29,7 +29,7 @@ module.exports = {
       var shopJSON = shop.toJSON();
       // Create the key value array from the shop object
       var items = _.map(Object.keys(shopJSON), function(key) {
-        if (key !== 'customFields') {
+        if (!_.contains(['description', 'customFields', '_id', 'avatar', 'name'], key)) {
           return { key: i18n.__(key), value: shopJSON[key] };
         }
       });
@@ -44,7 +44,13 @@ module.exports = {
 
       return res.json({
         status: 1,
-        items: items,
+        shop: {
+          _id: shop.id,
+          name: shop.name,
+          description: shop.description,
+          avatar: shop.avatar,
+          items: items,
+        },
         message: i18n.__('shop-info-success')
       });
     });
