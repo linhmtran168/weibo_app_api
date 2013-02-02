@@ -99,5 +99,16 @@
 	"invalid-latitude": "invalid-latitude",
 	"get-shop-success": "get-shop-success",
 	"shop-info-success": "shop-info-success",
-	"how-to-use-map": "Use the input to choose your region and drag and drop the marker to set you shop location"
+	"how-to-use-map": "Use the input to choose your region and drag and drop the marker to set you shop location",
+	"__v": "__v",
+	"_id": "_id",
+	"address": "Address",
+	"name": "Shop Name",
+	"phoneNumber": "Phone Number",
+	"languages": "Languages",
+	"isWifi": "Wifi",
+	"nearStations": "Nearby Stations",
+	"paymentOpts": "Payment Options",
+	"location": "location",
+	"avatar": "avatar"
 }

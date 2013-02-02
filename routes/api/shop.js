@@ -27,13 +27,21 @@ module.exports = {
       }
 
       var shopJSON = shop.toJSON();
+      // Create the key value array from the shop object
       var items = _.map(Object.keys(shopJSON), function(key) {
-        return { key: key, value: shopJSON[key] };
+        if (key !== 'customFields') {
+          return { key: i18n.__(key), value: shopJSON[key] };
+        }
       });
-      // console.log(Object.keys(shop.toJSON()));
-      // console.log(shopJSON['languages']);
-      // console.log(shopJSON['location']);
-      // console.log(shop);
+
+      // If there are custom fields add them to the array
+      if (!_.isEmpty(shopJSON.customFields)) {
+        console.log(shopJSON.customFields);
+        _.each(shopJSON.customFields, function(fieldValue) {
+          items.push({ key: fieldValue.name, value: fieldValue.value });
+        });
+      }
+
       return res.json({
         status: 1,
         items: items,
