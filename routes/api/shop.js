@@ -28,9 +28,10 @@ module.exports = {
 
       var shopJSON = shop.toJSON();
       // Create the key value array from the shop object
-      var items = _.map(Object.keys(shopJSON), function(key) {
+      var items = [];
+      _.each(Object.keys(shopJSON), function(key) {
         if (!_.contains(['description', 'customFields', '_id', 'avatar', 'name'], key)) {
-          return { key: i18n.__(key), value: shopJSON[key] };
+          items.push({ key: i18n.__(key), value: shopJSON[key] });
         }
       });
 
