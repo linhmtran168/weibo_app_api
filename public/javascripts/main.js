@@ -2,9 +2,9 @@ $(function() {
   if ($('#edit-addresspicker').length > 0) {
     // Maps for update shop location
     var long = parseFloat($('#long').val());
-    long = _.isNumber(long) ? long : 139.7667;
+    long = !_.isNaN(long) ? long : 139.7667;
     var lat = parseFloat($('#lat').val());
-    lat = _.isNumber(lat) ? lat : 35.6833;
+    lat = !_.isNaN(lat) ? lat : 35.6833;
 
     var addresspickerMap = $('#edit-addresspicker').addresspicker({
       regionBias: 'jp',

@@ -5,5 +5,5 @@
 
 module.exports = function(app) {
   require('./admin')(app);
-  // require('./api')(app);
+  require('./api')(app);
 };

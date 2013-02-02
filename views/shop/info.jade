@@ -24,7 +24,7 @@ block content
           for message in msg.messages
             p=message
 
-    .shop-container
+    .shop-container.clearfix
       .shop-image.span4
         img.img-polaroid(src='/images/#{shop.avatar}')
 
@@ -36,15 +36,56 @@ block content
               | #{ __('shop-name') }:
             dd
               | #{ shop.name }
-            dt
-              | #{ __('shop-description') }:
-            dd
-              | #{ shop.description }
             if currentUser.role === 'superAdmin'
               dt
                 | #{ __('shop-admin') }:
               dd
                 | #{ shop.admin.username }
+            if (shop.description)
+              dt
+                | #{ __('shop-description') }:
+              dd
+                | #{ shop.description }
+            if (shop.phoneNumber)
+              dt
+                | #{ __('phone-number') }
+              dd
+                | #{ shop.phoneNumber }
+            if (shop.address)
+              dt
+                | #{ __('Address') }
+              dd
+                | #{ shop.address }
+            if (shop.openingHours)
+              dt
+                | #{ __('opening-hour') }
+              dd
+                | #{ shop.openingHours }
+            dt
+              | #{ __('payment-options') }
+            dd
+              ul
+                for option in shop.paymentOpts
+                  li=option
+            dt
+              | #{ __('Languages') }
+            dd
+              ul
+                for lang in shop.languages
+                  li=lang
+            if (shop.nearStations && shop.nearStations.length > 0)
+              dt
+                | #{ __('near-station') }
+              dd
+                ul
+                  for station in shop.nearStations
+                    li=station
+            if (shop.customFields && shop.customFields.length > 0)
+              for customField in shop.customFields
+                dt
+                  | #{ customField.name }
+                dd
+                  | #{ customField.value }
 
         .row
           .shop-operation

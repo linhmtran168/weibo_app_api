@@ -90,5 +90,12 @@
 	"set-location": "Set Shop Location",
 	"Save": "Save",
 	"Invalid longitude": "Invalid longitude",
-	"Invalid latitude": "Invalid latitude"
+	"Invalid latitude": "Invalid latitude",
+	"invalid-api-kay": "invalid-api-kay",
+	"weibo-id-required": "weibo-id-required",
+	"weibo-secret-required": "weibo-secret-required",
+	"system-error": "system-error",
+	"invalid-longitude": "invalid-longitude",
+	"invalid-latitude": "invalid-latitude",
+	"get-shop-success": "get-shop-success"
 }
