@@ -88,7 +88,7 @@
 	"need-one-pay-opt": "need-one-pay-opt",
 	"custom-field-error": "custom-field-error",
 	"set-location": "Set Shop Location",
-	"Save": "Save",
+	"Save": "Save Shop Info",
 	"Invalid longitude": "Invalid longitude",
 	"Invalid latitude": "Invalid latitude",
 	"invalid-api-kay": "invalid-api-kay",
@@ -97,5 +97,7 @@
 	"system-error": "system-error",
 	"invalid-longitude": "invalid-longitude",
 	"invalid-latitude": "invalid-latitude",
-	"get-shop-success": "get-shop-success"
+	"get-shop-success": "get-shop-success",
+	"shop-info-success": "shop-info-success",
+	"how-to-use-map": "Use the input to choose your region and drag and drop the marker to set you shop location"
 }

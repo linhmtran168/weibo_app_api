@@ -1,5 +1,14 @@
 $(function() {
+  /*
+   * Initial google map picker if there is a addresspicker filed
+   */
   if ($('#edit-addresspicker').length > 0) {
+    // Disable enter to complete form
+    $('#edit-addresspicker').keypress(function(e) {
+      if (e.which === 13) {
+        e.preventDefault();
+      }
+    });
     // Maps for update shop location
     var long = parseFloat($('#long').val());
     long = !_.isNaN(long) ? long : 139.7667;
@@ -18,6 +27,13 @@ $(function() {
 
     // Render the marker
     addresspickerMap.addresspicker("reloadPosition");
+
+    addresspickerMap.on('addressChanged', function(evt, address) {
+      // Set the long/lat to the input
+      $('#lat').val(address.geometry.location.Ya);
+      $('#long').val(address.geometry.location.Za);
+      $('#geo-address').val(address.formatted_address);
+    });
 
     addresspickerMap.on('positionChanged', function(evt, markerPosition) {
       // Set the long/lat to the input
