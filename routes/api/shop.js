@@ -30,7 +30,7 @@ module.exports = {
       // Create the key value array from the shop object
       var items = [];
       _.each(Object.keys(shopJSON), function(key) {
-        if (!_.contains(['description', 'customFields', '_id', 'avatar', 'name'], key)) {
+        if (!_.contains(['description', 'customFields', '_id', 'avatar', 'name', 'location'], key)) {
           items.push({ key: i18n.__(key), value: shopJSON[key] });
         }
       });
@@ -50,6 +50,7 @@ module.exports = {
           name: shop.name,
           description: shop.description,
           avatar: shop.avatar,
+          locatoion: shop.location,
           items: items,
         },
         message: i18n.__('shop-info-success')
