@@ -50,7 +50,7 @@ module.exports = {
           name: shop.name,
           description: shop.description,
           avatar: shop.avatar,
-          locatoion: shop.location,
+          location: shop.location,
           items: items,
         },
         message: i18n.__('shop-info-success')
