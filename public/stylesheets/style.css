@@ -5879,6 +5879,9 @@ body {
   margin-top: 30px;
   margin-bottom: 50px;
 }
+.shop-container .shop-image {
+  margin-top: 12px;
+}
 .shop-container .shop-info {
   margin-left: 60px;
 }
@@ -5886,15 +5889,13 @@ body {
   display: block;
   width: 100%;
   padding: 0;
-  margin-bottom: 20px;
   font-size: 21px;
   line-height: 40px;
   color: #333333;
   border: 0;
-  border-bottom: 1px solid #e5e5e5;
 }
-.shop-container .shop-info dl {
-  font-size: 15px;
+.shop-container .shop-info .shop-operation {
+  text-align: center;
 }
 .shop-container .shop-operation {
   margin-top: 10px;

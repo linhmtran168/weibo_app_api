@@ -25,74 +25,92 @@ block content
             p=message
 
     .shop-container.clearfix
-      .shop-image.span4
+      .shop-image.span3
         img.img-polaroid(src='/images/#{shop.avatar}')
 
-      .span6.shop-info
+      .span7.shop-info
         .row
           p.shop-legend #{ __('shop-info') }
-          dl.dl-horizontal
-            dt
-              | #{ __('shop-name') }:
-            dd
-              | #{ shop.name }
+          table.table.table-hover.table-bordered.table-striped
+            tr
+              td
+                strong #{ __('shop-name') }:
+              td
+                | #{ shop.name }
             if currentUser.role === 'superAdmin'
-              dt
-                | #{ __('shop-admin') }:
-              dd
-                | #{ shop.admin.username }
+              tr
+                td
+                  strong #{ __('shop-admin') }:
+                td
+                  | #{ shop.admin.username }
             if (shop.description)
-              dt
-                | #{ __('shop-description') }:
-              dd
-                | #{ shop.description }
+              tr
+                td
+                  strong #{ __('shop-description') }:
+                td
+                  | #{ shop.description }
             if (shop.phoneNumber)
-              dt
-                | #{ __('phone-number') }
-              dd
-                | #{ shop.phoneNumber }
+              tr
+                td
+                  strong #{ __('phone-number') }
+                td
+                  | #{ shop.phoneNumber }
             if (shop.address)
-              dt
-                | #{ __('Address') }
-              dd
-                | #{ shop.address }
+              tr
+                td
+                  strong #{ __('Address') }
+                td
+                  | #{ shop.address }
             if (shop.openingHours)
-              dt
-                | #{ __('opening-hour') }
-              dd
-                | #{ shop.openingHours }
-            dt
-              | #{ __('payment-options') }
-            dd
-              ul
-                for option in shop.paymentOpts
-                  li=option
-            dt
-              | #{ __('Languages') }
-            dd
-              ul
-                for lang in shop.languages
-                  li=lang
-            if (shop.nearStations && shop.nearStations.length > 0)
-              dt
-                | #{ __('near-station') }
-              dd
+              tr
+                td
+                  strong #{ __('opening-hour') }
+                td
+                  | #{ shop.openingHours }
+            tr
+              td
+                strong #{ __('payment-options') }
+              td
+                ul
+                  for option in shop.paymentOpts
+                    li=option
+            tr
+              td
+                strong #{ __('Languages') }
+              td
+                ul
+                  for lang in shop.languages
+                    li=lang
+              if (shop.nearStations && shop.nearStations.length > 0)
+            tr
+              td
+                strong #{ __('near-station') }
+              td
                 ul
                   for station in shop.nearStations
                     li=station
             if (shop.customFields && shop.customFields.length > 0)
               for customField in shop.customFields
-                dt
-                  | #{ customField.name }
-                dd
-                  | #{ customField.value }
+                tr
+                  td
+                    strong #{ customField.name }
+                  td
+                    | #{ customField.value }
+            tr
+              td
+                strong #{ __('Location') }
+              td
+                if (shop.location.coords.length > 0) 
+                  img(border='0', src="//maps.googleapis.com/maps/api/staticmap?center=#{ shop.location.coords[1] },#{ shop.location.coords[0] }&zoom=13&size=400x300&markers=color:blue|label:S|#{ shop.location.coords[1] },#{ shop.location.coords[0] }&sensor=false")
+                else
+                  img(border='0', src="//maps.googleapis.com/maps/api/staticmap?center=Tokyo&zoom=13&size=400x300&sensor=false", alt="Your shop location")
 
         .row
           .shop-operation
             if currentUser.role === 'superAdmin'
               a.btn.btn-info.offset1.span1(href='/admin/shop/edit/#{ shop.id }') #{ __('Edit') }
             else
-              a.btn.btn-info.offset1.span1(href='/shop/edit') #{ __('Edit') }
+              a.btn.btn-info.btn-large(href='/shop/edit') #{ __('Edit') }
             if currentUser.role === 'superAdmin'
               a#delete-shop.btn.btn-danger.span1(href='/admin/shop/delete/#{ shop.id }') #{ __('Delete') }
               input#confirm-delete(type='hidden', value="#{ __('confirm-shop-delete') }")

@@ -105,5 +105,6 @@
 	"languages": "Languages",
 	"isWifi": "Wifi",
 	"nearStations": "Nearby Stations",
-	"paymentOpts": "Payment Options"
+	"paymentOpts": "Payment Options",
+	"Location": "Location"
 }

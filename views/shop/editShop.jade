@@ -96,7 +96,7 @@ block content
                 tr
                   td
                     label.checkbox.checkbox-label
-                      if shop.paymentOpts && shop.paymentOpts.indexOf('MASTER') !== -1
+                      if shop.paymentOpts && shop.paymentOpts.indexOf('Master') !== -1
                         input(type='checkbox', value="Master", name='payOptions', checked='checked')
                         | #{ __('Master') }
                       else
