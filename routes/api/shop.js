@@ -10,7 +10,7 @@ module.exports = {
    * Get info of one shop
    */
   info: function(req, res) {
-    Shop.findById(req.params.id, '-createdAt -updatedAt -admin', function(err, shop) {
+    Shop.findById(req.params.id, '-createdAt -updatedAt -admin -__v', function(err, shop) {
       if (err) {
         console.error('err');
         return res.json({

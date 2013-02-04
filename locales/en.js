@@ -106,5 +106,6 @@
 	"isWifi": "Wifi",
 	"nearStations": "Nearby Stations",
 	"paymentOpts": "Payment Options",
-	"Location": "Location"
+	"Location": "Location",
+	"__v": "__v"
 }
