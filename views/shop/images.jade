@@ -1,0 +1,11 @@
+extends ../layout
+
+block content
+  .tab-bar
+    ul.nav.nav-tabs
+      li
+        a.border-link(href='/shop')
+          | #{ __('your-shop') }
+      li.active
+        a.border-link(href='/shop/manage-images')
+          | #{ __('manage-images') }
