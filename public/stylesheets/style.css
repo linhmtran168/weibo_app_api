@@ -5900,6 +5900,13 @@ body {
 .shop-container .shop-operation {
   margin-top: 10px;
 }
+.shop-container .shop-operation .edit {
+  width: 80px;
+}
+.shop-container .shop-operation .delete {
+  width: 80px;
+  margin-left: 20px;
+}
 /* Edit shop super admin */
 .shop-edit-super-alert {
   margin: 10px auto 0px;

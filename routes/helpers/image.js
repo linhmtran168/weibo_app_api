@@ -43,14 +43,14 @@ exports.uploadImage = function(file, callback) {
       
 
       // Delete the temporary image
-      fs.unlink(tmpPath, function(err) {
+      process.nextTick(fs.unlink(tmpPath, function(err) {
         if (err) {
           console.error(err);
         }
 
         console.log('Deleted the temporary image');
         return;
-      });
+      }));
 
       // Return the new name of the image
       return callback(null, newName);
@@ -67,12 +67,12 @@ exports.deleteImage = function(fileName) {
   var photoPath = './public/images/';
 
   // Delete the  photo
-  fs.unlink(photoPath + fileName, function(err) {
+  process.nextTick(fs.unlink(photoPath + fileName, function(err) {
     if (err) {
       console.error(err);
       return;
     }
 
     console.log('Photo - successfully delete the photo');
-  });
+  }));
 };

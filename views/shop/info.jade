@@ -14,6 +14,9 @@ block content
         li.active
           a.border-link(href='/shop')
             | #{ __('your-shop') }
+        li
+          a.border-link(href='/shop/manage-images')
+            | #{ __('manage-images') }
           
 
   .content-container(class="#{ currentUser.role === 'superAdmin' ? 'content-border-left' : '' }")
@@ -81,14 +84,14 @@ block content
                 ul
                   for lang in shop.languages
                     li=lang
-              if (shop.nearStations && shop.nearStations.length > 0)
-            tr
-              td
-                strong #{ __('near-station') }
-              td
-                ul
-                  for station in shop.nearStations
-                    li=station
+            if (shop.nearStations && shop.nearStations.length > 0)
+              tr
+                td
+                  strong #{ __('near-station') }
+                td
+                  ul
+                    for station in shop.nearStations
+                      li=station
             if (shop.customFields && shop.customFields.length > 0)
               for customField in shop.customFields
                 tr
@@ -108,11 +111,11 @@ block content
         .row
           .shop-operation
             if currentUser.role === 'superAdmin'
-              a.btn.btn-info.offset1.span1(href='/admin/shop/edit/#{ shop.id }') #{ __('Edit') }
+              a.btn.btn-info.edit(href='/admin/shop/edit/#{ shop.id }') #{ __('Edit') }
             else
               a.btn.btn-info.btn-large(href='/shop/edit') #{ __('Edit') }
             if currentUser.role === 'superAdmin'
-              a#delete-shop.btn.btn-danger.span1(href='/admin/shop/delete/#{ shop.id }') #{ __('Delete') }
+              a#delete-shop.btn.btn-danger.delete(href='/admin/shop/delete/#{ shop.id }') #{ __('Delete') }
               input#confirm-delete(type='hidden', value="#{ __('confirm-shop-delete') }")
               input#cancel(type='hidden', value="#{ __('Cancel') }")
               input#continue(type='hidden', value="#{ __('Continue!') }")

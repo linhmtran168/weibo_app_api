@@ -107,5 +107,6 @@
 	"nearStations": "Nearby Stations",
 	"paymentOpts": "Payment Options",
 	"Location": "Location",
-	"__v": "__v"
+	"__v": "__v",
+	"manage-images": "Manage Shop Images"
 }
