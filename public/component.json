@@ -11,6 +11,7 @@
     "bootbox": "~3.0.0",
     "jquery-addresspicker": "git://github.com/elmariachi111/jquery-addresspicker.git",
     "x-editable": "/Users/mb985/Downloads/x-editable",
-    "bootstrap-lightbox": "~0.4.1"
+    "bootstrap-lightbox": "~0.4.1",
+    "jquery.colorbox": "~1.3.34"
   }
 }
