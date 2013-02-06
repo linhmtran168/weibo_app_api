@@ -9,6 +9,8 @@
     "jasny-bootstrap": "/Users/mb985/Downloads/jasny-bootstrap",
     "jqBootstrapValidation": "/Users/mb985/Downloads/jqBootstrapValidation",
     "bootbox": "~3.0.0",
-    "jquery-addresspicker": "git://github.com/elmariachi111/jquery-addresspicker.git"
+    "jquery-addresspicker": "git://github.com/elmariachi111/jquery-addresspicker.git",
+    "x-editable": "/Users/mb985/Downloads/x-editable",
+    "bootstrap-lightbox": "~0.4.1"
   }
 }

@@ -12,12 +12,6 @@ var userSchema = new Schema({
   weiboSecret: { type: String, required: true },
   accessToken: { type: String, index: true },
   deviceId: [String],
-  images: [{
-    name: { type: String, required: true, index: { unique: true } },
-    thumbnail: { type: String, required: true, index: { unique: true } },
-    description: String,
-    uploadedAt: { type: Date, default: Date.now, index: true }
-  }],
   createdAt: { type: Date, default: Date.now, index: true },
   updatedAt: { type: Date, default: Date.now, index: true }
 });

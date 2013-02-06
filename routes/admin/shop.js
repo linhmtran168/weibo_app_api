@@ -362,6 +362,9 @@ module.exports = {
     });
   },
 
+  /*
+   * Delete a shop
+   */
   delete: function(req, res) {
     // GET the shopID
     var shopId = req.params.id;
@@ -376,6 +379,16 @@ module.exports = {
 
       // Delete the shop photo
       imgHelpers.deleteImage(shop.avatar);
+      
+      // Delete the shop images
+      if (shop.images.length > 0) {
+        process.nextTick(function() {
+          _.each(shop.images, function(image) {  
+            imgHelpers.deleteImage(image.name);
+            imgHelpers.deleteImage(image.thumbnail, true);
+          });
+        });
+      }
 
       // Delete the admin user of the shop
       Admin.findByIdAndRemove(shop.admin, function(err, admin) {
@@ -391,5 +404,6 @@ module.exports = {
         return res.redirect('/');
       });
     });
-  }
+  },
+  
 };

@@ -108,5 +108,20 @@
 	"paymentOpts": "Payment Options",
 	"Location": "Location",
 	"__v": "__v",
-	"manage-images": "Manage Shop Images"
+	"manage-images": "Manage Shop Images",
+	"upload-image": "Upload Image",
+	"upload-image-notice": "You can upload up to 18 images for your shop",
+	"save-image": "Save Image",
+	"image-description": "Image Description",
+	"success-upload-image": "Successfully uploaded the image",
+	"Image": "Image",
+	"Options": "Options",
+	"imgage-description": "Image Description",
+	"Number": "No.",
+	"upload-image-limit": "You already have 18 images. Please delete old images in order to upload new images",
+	"enter-description": "Enter Image Description",
+	"image-description-success": "Update image description sucessfully",
+	"invalid-request": "Invalid Request",
+	"Empty": "Empty",
+	"delete-image-success": "Successfully deleted the image"
 }

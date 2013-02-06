@@ -7,5 +7,86 @@ block content
         a.border-link(href='/shop')
           | #{ __('your-shop') }
       li.active
-        a.border-link(href='/shop/manage-images')
+        a.border-link(href='/shop/images')
           | #{ __('manage-images') }
+
+  .content-container.content-border-left
+    if typeof msg !== 'undefined'
+      .row
+        .alert.images-alert(class='alert-#{ msg.type }')
+          button.close(type='button', data-dismiss='alert') x
+          for message in msg.messages
+            p=message
+            
+    .row
+      .image-upload-div
+        if shop.images.length >= 18
+          button#upload-image.btn.btn-primary(disabled='disabled') #{ __('upload-image') }
+          p.text-warning #{ __('upload-image-limit') }
+        else
+          button#upload-image.btn.btn-primary(data-target='#photo-modal', data-toggle='modal') #{ __('upload-image') }
+          p.muted #{ __('upload-image-notice') }
+
+    if shop.images.length > 0
+      .row
+        .images-list.span11
+          input#csrf(type='hidden', value=token, name='_csrf')
+          input#emptytext(type='hidden', value="#{ __('Empty') }")
+          input#imagetext(type='hidden', value="#{ __('Image') }")
+          table.table.table-hover.table-bordered
+            thead
+              tr
+                th #{ __('Number') }
+                th #{ __('Image') }
+                th #{ __('imgage-description') }
+                th #{ __('Options') }
+
+            tbody
+              - for (var i = 0; i < shop.images.length; i++)
+                tr
+                  th=(i + 1)
+                  td.image-td
+                    a.image-link(href='/images/#{ shop.images[i].name }', alt='#{ shop.images[i].description }')
+                      img.span4.img-polaroid(src='/images/#{ shop.images[i].name }')
+                  td
+                    a.img-description(href='#', data-type='textarea', data-pk='#{ shop.images[i].id }', data-url='/shop/image/update-description/#{ shop.images[i].id }', data-original-title="#{ __('enter-description') }", data-name='description')=shop.images[i].description
+                  td
+                    a.btn.btn-danger(href='/shop/image/delete/#{ shop.images[i].id }') #{ __('Delete') }
+
+
+
+    #photo-modal.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='modal-label')
+      form(action='/shop/upload-image/', method='post', enctype='multipart/form-data')
+        .modal-header
+          button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+          h3#modal-label #{ __('upload-image') }
+
+        .modal-body
+          .fileupload.fileupload-new(data-provides='fileupload')
+            .fileupload-new.thumbnail.align-image
+              img.span4(src='/images/no_image.png')
+            .fileupload-preview.fileupload-exists.thumbnail.uploaded-image
+            .image-buttons
+              span.btn.btn-file
+                span.fileupload-new #{ __('choose-image') }
+                span.fileupload-exists #{ __('Change') }
+                input(type='file', name='shopImage')
+                input(type='hidden', name='_csrf', value=token)
+
+              a.btn.fileupload-exists(href='#', data-dismiss='fileupload') #{ __('Remove') }
+              
+          .image-description
+            textarea(name='description', rows='2', placeholder="#{ __('image-description') }")
+
+        .modal-footer
+          button.btn(data-dismiss='modal', aria-hidden='true') #{ __('Cancel') }
+          button.btn.btn-primary(type='submit') #{ __('save-image') }
+          
+
+append head
+  link(rel='stylesheet', href='/components/x-editable/bootstrap-editable/css/bootstrap-editable.css')
+  link(rel='stylesheet', href='/components/jquery.colorbox/example1/colorbox.css')
+
+append scripts
+  script(src='/components/x-editable/bootstrap-editable/js/bootstrap-editable.min.js')
+  script(src='/components/jquery.colorbox/jquery.colorbox-min.js')

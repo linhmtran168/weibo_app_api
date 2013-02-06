@@ -9,6 +9,12 @@ var shopSchema = new Schema({
   admin: { type: ObjectId, required: true, ref: 'Admin', index: true },
   name: { type: String, required: true, index: true },
   avatar: { type: String, default: 'no_image.png' },
+  images: [{
+    name: { type: String, required: true, index: { unique: true } },
+    thumbnail: { type: String, required: true, index: { unique: true } },
+    description: String,
+    uploadedAt: { type: Date, default: Date.now, index: true }
+  }],
   location: {
     geoAddress: { type: String, index: true },
     coords: { type: Array, index: '2d' }

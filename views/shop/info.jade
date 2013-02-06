@@ -15,7 +15,7 @@ block content
           a.border-link(href='/shop')
             | #{ __('your-shop') }
         li
-          a.border-link(href='/shop/manage-images')
+          a.border-link(href='/shop/images')
             | #{ __('manage-images') }
           
 
@@ -64,6 +64,11 @@ block content
                   strong #{ __('Address') }
                 td
                   | #{ shop.address }
+            tr
+              td 
+                strong #{ __('Wifi') }
+              td
+                | #{ shop.wifi ? 'Yes' : 'No' }
             if (shop.openingHours)
               tr
                 td

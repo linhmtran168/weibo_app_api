@@ -6,6 +6,7 @@ var passport = require('passport')
   , adminHelpers = require('../helpers/admin')
   , requestHelpers = require('../helpers/request')
   , shopHelpers = require('../helpers/shop')
+  , imageCtrl = require('./image')
   , testCtrl = require('./test')
   , adminCtrl = require('./admin')
   , shopCtrl = require('./shop');
@@ -64,5 +65,15 @@ module.exports = function(app) {
 
   // Render admin' edit shop page
   app.get('/shop/edit', [adminHelpers.ensureAuthenticated, adminHelpers.isShopAdmin, requestHelpers.csrf], shopCtrl.editShop);
+  // Edit the shop
   app.post('/shop/edit', [adminHelpers.ensureAuthenticated, adminHelpers.isShopAdmin, shopHelpers.validateEditShop], shopCtrl.editShop);
+  
+  // Render images page
+  app.get('/shop/images', [adminHelpers.ensureAuthenticated, adminHelpers.isShopAdmin, requestHelpers.csrf], imageCtrl.images);
+  // Upload image
+  app.post('/shop/upload-image', [adminHelpers.ensureAuthenticated, adminHelpers.isShopAdmin, requestHelpers.csrf], imageCtrl.uploadShopImage);
+  // Edit image description
+  app.post('/shop/image/update-description/:id', [adminHelpers.ensureAuthenticated, adminHelpers.isShopAdmin], imageCtrl.updateDescription);
+  // Delete image
+  app.get('/shop/image/delete/:id', [adminHelpers.ensureAuthenticated, adminHelpers.isShopAdmin], imageCtrl.delete);
 };

@@ -5977,3 +5977,47 @@ body {
 .edit-shop-form .map-edit-shop {
   text-align: center;
 }
+/* Manage images shop admin */
+.image-upload-div {
+  margin: 30px auto 30px;
+  width: 400px;
+  text-align: center;
+}
+.image-upload-div p {
+  margin-top: 10px;
+}
+.images-alert {
+  margin: 30px auto 0px;
+  width: 400px;
+}
+#photo-modal .fileupload {
+  text-align: center;
+}
+#photo-modal .fileupload .fileupload-preview img {
+  width: 300px;
+}
+#photo-modal .fileupload .btn-file {
+  margin-right: 10px;
+}
+#photo-modal .image-description {
+  text-align: center;
+}
+#photo-modal .image-description textarea {
+  width: 300px;
+}
+.images-list {
+  margin-left: 56px;
+  margin-bottom: 40px;
+}
+.images-list table th,
+.images-list table td {
+  text-align: center;
+}
+.images-list table th img,
+.images-list table td img {
+  margin: 10px;
+}
+.images-list table td.image-td {
+  white-space: nowrap;
+  width: 1px;
+}

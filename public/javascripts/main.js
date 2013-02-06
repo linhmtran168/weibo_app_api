@@ -47,7 +47,9 @@ $(function() {
     });
   }
 
-  // Initialize bootstrap validation for form
+  /*
+   * Initialize bootstrap validation for form
+   */
   $(".create-shop-form input").not("[type=submit]").not("[type=file]").jqBootstrapValidation();
   $(".edit-shop-form input").not("[type=submit]").not("[type=file]").jqBootstrapValidation();
   $(".edit-shop-super input").not("[type=submit]").not("[type=file]").jqBootstrapValidation();
@@ -74,6 +76,31 @@ $(function() {
       }
     }]);
   });
-
+  
+  /* 
+   * X-editable initialization
+   */
+  if ($('.img-description').length > 0) {
+    var crsfKey = $('#csrf').val();
+    $('.img-description').editable({
+      params: { 
+        '_csrf': crsfKey
+      },
+      mode: 'inline',
+      emptytext: $('#emptytext').val()
+    });
+  }
+  
+  /*
+   * color box
+   */
+  $('.image-link').colorbox({
+    rel: 'shop-images',
+    scaledPhotos: true,
+    maxWidth: $(window).width() * 90/100,
+    maxHeight: $(window).height() * 90/100,
+    current: $('#imagetext').val() + " {current}/{total}"
+  });
+  
 });
 
