@@ -94,13 +94,14 @@ $(function() {
   /*
    * color box
    */
-  $('.image-link').colorbox({
-    rel: 'shop-images',
-    scaledPhotos: true,
-    maxWidth: $(window).width() * 90/100,
-    maxHeight: $(window).height() * 90/100,
-    current: $('#imagetext').val() + " {current}/{total}"
-  });
-  
+  if ($('.image-link').length > 0) {
+    $('.image-link').colorbox({
+      rel: 'shop-images',
+      scaledPhotos: true,
+      maxWidth: $(window).width() * 90/100,
+      maxHeight: $(window).height() * 90/100,
+      current: $('#imagetext').val() + " {current}/{total}"
+    });
+  }
 });
 
