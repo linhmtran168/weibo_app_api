@@ -110,7 +110,7 @@ $(function() {
   WB2.anyWhere(function(W){
   W.widget.connectButton({
       id: "wb_connect_btn",	
-      type:"3,2",
+      type:"3,3",
       callback : {
         login:function(wbUser){	
           // Update the shop weibo credentials
