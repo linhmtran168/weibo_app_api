@@ -144,6 +144,8 @@ $(function() {
    */
   $('#remove-weibo').click(function(e) {
     e.preventDefault();
+    // Logout the user, if the user is login
+    WB2.logout();
     var data = { _csrf: $('#csrf').val() };
     $.post('/shop/remove-weibo-account', data, function(response) {
       console.log(response.status + ':' + response.message);
