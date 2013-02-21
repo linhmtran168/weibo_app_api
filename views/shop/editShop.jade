@@ -46,7 +46,7 @@ block content
           .control-group
             label.control-label #{ __('weibo-account') }
             .controls
-              #weibo 
+              #weibo-div 
                 if shop.weiboAccount.id && (shop.weiboAccount.id.length > 0)
                   img(src='http://timg.sjs.sinajs.cn/t4/appstyle/widget/images/loginButton/loginButton_16a.png', alt='#{ shop.weiboAccount.username }')
                   a.loginW(href='//weibo.com/u/#{ shop.weiboAccount.id }')=shop.weiboAccount.username
