@@ -112,8 +112,10 @@ $(function() {
       id: "wb_connect_btn",	
       type:"2,1",
       callback : {
-          login:function(o){	
-            console.log(o);
+          login:function(wbUser){	
+            // Update the shop weibo credentials
+            var data = { _csrf: $('#csrf'), weiboId: wbUser.idstr, weiboName: wbUser.name  };
+            console.log(data);
           },	
           logout:function(){
           }
