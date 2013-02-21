@@ -107,7 +107,7 @@ $(function() {
   /*
    * weibo connect
    */
-  if ($('weibo_connect_btn').length > 0) {
+  if ($('wb_connect_btn').length > 0) {
     WB2.anyWhere(function(W){
     W.widget.connectButton({
         id: "wb_connect_btn",	
