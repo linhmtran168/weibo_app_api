@@ -123,5 +123,8 @@
 	"image-description-success": "Update image description sucessfully",
 	"invalid-request": "Invalid Request",
 	"Empty": "Empty",
-	"delete-image-success": "Successfully deleted the image"
+	"delete-image-success": "Successfully deleted the image",
+	"get-shops-success": "get-shops-success",
+	"invalid-access-token": "invalid-access-token",
+	"paymentOpt": "paymentOpt"
 }

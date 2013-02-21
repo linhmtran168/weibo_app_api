@@ -118,3 +118,10 @@ if (cluster.isMaster) {
     console.log("Express server listening on port " + app.get('port') + ' | Worker ' + cluster.worker.id + ' running');
   });
 }
+
+// Listen for dying worker
+cluster.on('exit', function(worker) {
+  // Replace the dead worker
+  console.log('Worker ' + worker.id + ' died!');
+  cluster.fork();
+});
