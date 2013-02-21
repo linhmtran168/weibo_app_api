@@ -114,8 +114,10 @@ $(function() {
       callback : {
           login:function(wbUser){	
             // Update the shop weibo credentials
-            var data = { _csrf: $('#csrf'), weiboId: wbUser.idstr, weiboName: wbUser.name  };
-            console.log(data);
+            var data = { _csrf: $('#csrf').val(), weiboId: wbUser.idstr, weiboName: wbUser.name  };
+            $.post('/shop/update-weibo-account', data, function(response) {
+              console.log(response.status + ':' + response.message);
+            });
           },	
           logout:function(){
           }
