@@ -119,6 +119,6 @@ exports.isShopAdmin = function(req, res, next) {
     return res.redirect('/');
   }
 
-  console.log(req.user);
+  console.log(req.body);
   next();
 };
