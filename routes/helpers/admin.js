@@ -10,7 +10,6 @@ var Admin = require('../../models/admin')
  */
 exports.ensureAuthenticated = function(req, res, next) {
   if (req.isAuthenticated()) {
-    console.log(req.body);
     return next();
   }
 

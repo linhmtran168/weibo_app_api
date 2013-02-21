@@ -441,6 +441,43 @@ module.exports = {
         });
       });
     });
+  },
+
+  /*
+   * Remove weibo account
+   */
+  removeWeiboAccount: function(req, res) {
+    // Get the current shop
+    Shop.findOne({ admin: req.user.id }, function(err, shop) {
+
+      // If ther is no shop
+      if (!shop) {
+        return res.json({
+          status: 0,
+          message: i18n.__('no-shop-id')
+        });
+      }
+
+      shop.weiboAccount.username = '';
+      shop.weiboAccount.id = '';
+
+      // Attemp to save the shop
+
+      shop.save(function(err) {
+        if (err) {
+          console.error(err);
+          return res.json({
+            status: 0,
+            message: i18n.__('system-error')
+          });
+        }
+
+        return res.json({
+          status: 1,
+          message: i18n.__('success-remove-weibo')
+        });
+      });
+    });
   }
   
 };

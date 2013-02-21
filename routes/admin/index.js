@@ -71,7 +71,7 @@ module.exports = function(app) {
   // Update weibo account
   app.post('/shop/update-weibo-account', [adminHelpers.ensureAuthenticated, adminHelpers.isShopAdmin], shopCtrl.updateWeiboAccount);
   // Remove weibo account
-  app.post('/shop/remove-weibo-account', [adminHelpers.ensureAuthenticated, adminHelpers.isShopAdmin], shopCtrl.updateWeiboAccount);
+  app.post('/shop/remove-weibo-account', [adminHelpers.ensureAuthenticated, adminHelpers.isShopAdmin], shopCtrl.removeWeiboAccount);
 
   // Render images page
   app.get('/shop/images', [adminHelpers.ensureAuthenticated, adminHelpers.isShopAdmin, requestHelpers.csrf], imageCtrl.images);

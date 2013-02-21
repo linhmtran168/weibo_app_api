@@ -110,17 +110,22 @@ $(function() {
   WB2.anyWhere(function(W){
   W.widget.connectButton({
       id: "wb_connect_btn",	
-      type:"2,1",
+      type:"3,2",
       callback : {
-          login:function(wbUser){	
-            // Update the shop weibo credentials
-            var data = { _csrf: $('#csrf').val(), weiboId: wbUser.idstr, weiboName: wbUser.name  };
-            $.post('/shop/update-weibo-account', data, function(response) {
-              console.log(response.status + ':' + response.message);
-            });
-          },	
-          logout:function(){
-          }
+        login:function(wbUser){	
+          // Update the shop weibo credentials
+          var data = { _csrf: $('#csrf').val(), weiboId: wbUser.idstr, weiboName: wbUser.name  };
+          $.post('/shop/update-weibo-account', data, function(response) {
+            console.log(response.status + ':' + response.message);
+          });
+        },	
+        logout:function(){
+          // Remove weibo account
+          var data = { _csrf: $('#csrf').val() };
+          $.post('/shop/remove-weibo-account', data, function(response) {
+            console.log(response.status + ':' + response.message);
+          });
+        }
       }
     });
   });
