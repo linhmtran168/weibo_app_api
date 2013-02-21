@@ -44,6 +44,11 @@ block content
               p.help-block
 
           .control-group
+            .label.control-label #{ __('weibo-account') }
+            .controls
+              #wb_connect_btn
+
+          .control-group
             label.control-label(for='description') #{ __('Description') }
             .controls
               textarea(rows='3', placeholder="#{ __('Description') }", name='description')=shop.description
@@ -235,6 +240,8 @@ block content
               input(type='hidden', name='_csrf', value=token)
 
 
+append head
+  script(src='http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=2836852820', type='text/javascript', charset='utf-8')
 prepend scripts
   script(src='https://maps.googleapis.com/maps/api/js?sensor=false')
 append scripts
