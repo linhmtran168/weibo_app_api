@@ -46,12 +46,13 @@ block content
           .control-group
             label.control-label #{ __('weibo-account') }
             .controls
-              if shop.weiboAccount.id && (shop.weiboAccount.id.length > 0)
-                img(src='http://timg.sjs.sinajs.cn/t4/appstyle/widget/images/loginButton/loginButton_16a.png', alt='#{ shop.weiboAccount.username }')
-                a.loginW(href='//weibo.com/u/#{ shop.weiboAccount.id }')=shop.weiboAccount.username
-                a.loginW.logoutW.muted#remove-weibo(href='#') #{ __('Remove') }
-              else 
-                #wb_connect_btn
+              #weibo 
+                if shop.weiboAccount.id && (shop.weiboAccount.id.length > 0)
+                  img(src='http://timg.sjs.sinajs.cn/t4/appstyle/widget/images/loginButton/loginButton_16a.png', alt='#{ shop.weiboAccount.username }')
+                  a.loginW(href='//weibo.com/u/#{ shop.weiboAccount.id }')=shop.weiboAccount.username
+                  a.loginW.logoutW.muted#remove-weibo(href='#') #{ __('Remove') }
+                else 
+                  #wb_connect_btn
 
           .control-group
             label.control-label(for='description') #{ __('Description') }
