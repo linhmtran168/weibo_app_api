@@ -9,6 +9,7 @@ var Admin = require('../../models/admin')
  * Check user authenticated or not
  */
 exports.ensureAuthenticated = function(req, res, next) {
+  console.log(req.user);
   if (req.isAuthenticated()) {
     return next();
   }
