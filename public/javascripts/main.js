@@ -112,9 +112,10 @@ $(function() {
       id: "wb_connect_btn",	
       type:"2,1",
       callback : {
-          login:function(o){	//登录后的回调函数
+          login:function(o){	
+            console.log(o);
           },	
-          logout:function(){	//退出后的回调函数
+          logout:function(){
           }
       }
     });
