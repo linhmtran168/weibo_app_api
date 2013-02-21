@@ -104,10 +104,10 @@ $(function() {
     });
   }
 
-  /*
-   * weibo connect
+  /* 
+   * Weibo login function
    */
-  if ($('#wb_connect_btn').length > 0) {
+  function weiboLogin() {
     WB2.anyWhere(function(W){
       W.widget.connectButton({
         id: "wb_connect_btn",	
@@ -133,6 +133,13 @@ $(function() {
   }
 
   /*
+   * weibo connect
+   */
+  if ($('#wb_connect_btn').length > 0) {
+    weiboLogin();
+  }
+
+  /*
    * weibo disconnect
    */
   $('#remove-weibo').click(function(e) {
@@ -143,29 +150,8 @@ $(function() {
 
       $('#weibo-div').html("<div id='wb_connect_btn'></div>");
       
-      // Start the javascript again
-      WB2.anyWhere(function(W){
-        W.widget.connectButton({
-          id: "wb_connect_btn",	
-          type:"3,3",
-          callback : {
-            login:function(wbUser){	
-              // Update the shop weibo credentials
-              var data = { _csrf: $('#csrf').val(), weiboId: wbUser.idstr, weiboName: wbUser.name  };
-              $.post('/shop/update-weibo-account', data, function(response) {
-                console.log(response.status + ':' + response.message);
-              });
-            },	
-            logout:function(){
-              // Remove weibo account
-              var data = { _csrf: $('#csrf').val() };
-              $.post('/shop/remove-weibo-account', data, function(response) {
-                console.log(response.status + ':' + response.message);
-              });
-            }
-          }
-        });
-      });
+      // Start the weibo javascript again
+      weiboLogin();
     });
   });
 });

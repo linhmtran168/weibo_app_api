@@ -40,6 +40,13 @@ block content
                 strong #{ __('shop-name') }:
               td
                 | #{ shop.name }
+            if shop.weiboAccount.id && (shop.weiboAccount.id.length > 0)
+              tr
+                td
+                  strong #{ __('weibo-account') }
+                td
+                  img(src='http://timg.sjs.sinajs.cn/t4/appstyle/widget/images/loginButton/loginButton_16a.png', alt='#{ shop.weiboAccount.username }')
+                  a(href='//weibo.com/u/#{ shop.weiboAccount.id }')=shop.weiboAccount.username
             if currentUser.role === 'superAdmin'
               tr
                 td
