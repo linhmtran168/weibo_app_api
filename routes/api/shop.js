@@ -42,7 +42,7 @@ module.exports = {
             }
           }
 
-          items.push({ key: i18n.__(key), value: shopJSON[key] });
+          items.push({ key: i18n.__(key), value: value });
         }
       });
 
