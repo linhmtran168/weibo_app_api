@@ -126,5 +126,6 @@
 	"delete-image-success": "Successfully deleted the image",
 	"get-shops-success": "get-shops-success",
 	"invalid-access-token": "invalid-access-token",
-	"paymentOpt": "paymentOpt"
+	"paymentOpt": "paymentOpt",
+  "openingHours": "Opening Hours"
 }
