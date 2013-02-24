@@ -63,6 +63,7 @@ module.exports = {
           avatar: shop.avatar,
           images: shop.images,
           location: shop.location,
+          weiboAccount: shop.weiboAccount,
           items: items,
         },
         message: i18n.__('shop-info-success')
