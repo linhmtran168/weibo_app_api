@@ -5885,6 +5885,10 @@ body {
 .shop-container .shop-info {
   margin-left: 60px;
 }
+.shop-container .shop-info .loginW {
+  vertical-align: middle;
+  margin-left: 5px;
+}
 .shop-container .shop-info .shop-legend {
   display: block;
   width: 100%;
@@ -5958,6 +5962,9 @@ body {
 .edit-shop-form .checkbox-label {
   width: 80px;
 }
+.edit-shop-form .select2-container {
+  width: 300px;
+}
 .edit-shop-form .radio-label {
   width: 80px;
 }
@@ -5976,6 +5983,13 @@ body {
 }
 .edit-shop-form .map-edit-shop {
   text-align: center;
+}
+.edit-shop-form .controls .loginW {
+  vertical-align: middle;
+  font: 12px/1.125 Arial, Helvetica, sans-serif;
+  line-height: 16px;
+  margin-left: 5px;
+  text-align: left;
 }
 /* Manage images shop admin */
 .image-upload-div {

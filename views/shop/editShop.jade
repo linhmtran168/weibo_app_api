@@ -55,6 +55,15 @@ block content
                   #wb_connect_btn
 
           .control-group
+            label.control-label(for='category') #{ __('Category') }
+            .controls
+              select.span4#categories(name='category')
+                for cat in categories
+                  optgroup(label='#{ cat.name }')
+                    - for (i = 0; i < cat.subs.length; i ++)
+                      option(value="#{ cat.code + i + '|' + cat.subs[i]}")=cat.subs[i]
+
+          .control-group
             label.control-label(for='description') #{ __('Description') }
             .controls
               textarea(rows='3', placeholder="#{ __('Description') }", name='description')=shop.description
@@ -244,10 +253,11 @@ block content
               input#lat(type='hidden', name='lat', value='#{ shop.location.coords[1] ? shop.location.coords[1] : '' }')
               input#geo-address(type='hidden', name='geoAddress')
               input#csrf(type='hidden', name='_csrf', value=token)
-
-
+append head
+  link(rel='stylesheet', href='/components/select2/select2.css')
 prepend scripts
   script(src='https://maps.googleapis.com/maps/api/js?sensor=false')
 append scripts
   script(src='/components/jquery-addresspicker/lib/bootstrap-typeahead.min.js')
   script(src='/components/jquery-addresspicker/src/jquery.addresspicker.js')
+  script(src='/components/select2/select2.min.js')

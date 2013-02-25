@@ -38,8 +38,8 @@ block content
             tr
               td
                 strong #{ __('shop-name') }:
-              td
-                | #{ shop.name }
+              td=shop.name
+
             if shop.weiboAccount.id && (shop.weiboAccount.id.length > 0)
               tr
                 td
@@ -51,26 +51,27 @@ block content
               tr
                 td
                   strong #{ __('shop-admin') }:
-                td
-                  | #{ shop.admin.username }
+                td=shop.admin.username
+            tr
+              td
+                strong #{ __('Category') }
+              td=shop.category.name
+
             if (shop.description)
               tr
                 td
                   strong #{ __('shop-description') }:
-                td
-                  | #{ shop.description }
+                td=shop.description
             if (shop.phoneNumber)
               tr
                 td
                   strong #{ __('phone-number') }
-                td
-                  | #{ shop.phoneNumber }
+                td=shop.phoneNumber
             if (shop.address)
               tr
                 td
                   strong #{ __('Address') }
-                td
-                  | #{ shop.address }
+                td=shop.address
             tr
               td 
                 strong #{ __('Wifi') }
@@ -80,8 +81,7 @@ block content
               tr
                 td
                   strong #{ __('opening-hour') }
-                td
-                  | #{ shop.openingHours }
+                td=shop.openingHours
             tr
               td
                 strong #{ __('payment-options') }
@@ -109,8 +109,7 @@ block content
                 tr
                   td
                     strong #{ customField.name }
-                  td
-                    | #{ customField.value }
+                  td=customField.value
             tr
               td
                 strong #{ __('Location') }

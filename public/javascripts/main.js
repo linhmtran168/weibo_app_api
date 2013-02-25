@@ -104,6 +104,11 @@ $(function() {
     });
   }
 
+  /*
+   * Select2
+   */
+  $('#categories').select2();
+
   /* 
    * Weibo login function
    */

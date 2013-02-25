@@ -177,15 +177,105 @@ module.exports = {
 
       // GET request render the edit page
       if (req.method !== 'POST') {
+        // Create categories
+        var categories = [
+          {
+            name: i18n.__('グルメ'),
+            code: 'a',
+            subs: [
+              i18n.__('居酒屋'),
+              i18n.__('焼き鳥・串料理'),
+              i18n.__('焼肉・ホルモン'),
+              i18n.__('ラーメン・麺料理'),
+              i18n.__('寿司・魚料理'),
+              i18n.__('お好み焼き・粉もの'),
+              i18n.__('オーガニック・創作料理'),
+              i18n.__('日本料理・郷土料理'),
+              i18n.__('洋食'),
+              i18n.__('中華料理'),
+              i18n.__('アジア・エスニック料理'),
+              i18n.__('イタリア料理'),
+              i18n.__('フランス料理'),
+              i18n.__('バー・ビアホール'),
+              i18n.__('カフェ・スイーツ'),
+              i18n.__('その他'),
+            ]
+          },
+          {
+            name: i18n.__('ショッピング'),
+            code: 'b',
+            subs: [
+              i18n.__('百貨店'),
+              i18n.__('量販店'),
+              i18n.__('お土産'),
+              i18n.__('アパレル・ジュエリー・ブランド'),
+              i18n.__('食品'),
+              i18n.__('スーパー・コンビニエンスストア'),
+              i18n.__('雑貨・日用品'),
+              i18n.__('薬局・化粧品'),
+              i18n.__('ホビー・本'),
+              i18n.__('その他'),
+            ]
+          },
+          {
+            name: i18n.__('宿泊'),
+            code: 'c',
+            subs: [
+              i18n.__('ホテル'),
+              i18n.__('ビジネスホテル'),
+              i18n.__('旅館'),
+            ]
+          },
+          {
+            name: i18n.__('レジャー'),
+            code: 'd',
+            subs: [
+              i18n.__('ゲームセンター'),
+              i18n.__('パチンコ'),
+              i18n.__('カラオケ'),
+              i18n.__('温浴施設'),
+              i18n.__('遊園地'),
+              i18n.__('観光地'),
+              i18n.__('その他'),
+            ]
+          },
+          {
+            name: i18n.__('ビューティー・ヘルス'),
+            code: 'e',
+            subs: [
+              i18n.__('エステサロン'),
+              i18n.__('ネイルサロン'),
+              i18n.__('焼肉・ホルモン'),
+              i18n.__('ヘアサロン'),
+              i18n.__('リラクゼーション'),
+              i18n.__('美容外科'),
+              i18n.__('内科'),
+              i18n.__('外科'),
+              i18n.__('洋食'),
+              i18n.__('総合病院'),
+              i18n.__('その他'),
+            ]
+          },
+        ];
+
         return res.render('shop/editShop', {
           title: i18n.__('edit-your-shop'),
           shop: shop,
+          categories: categories,
           msg: req.flash('message')[0]
         });
       }
 
       // POST request
       shop.name = req.body.shopName;
+      // Main category 'a', sub category 'a1', shop name ....
+      var category = req.body.category
+        , dashIndex = category.indexOf('|');
+
+      shop.category.main = category[0];
+      shop.category.sub = category.substring(0, dashIndex);
+      shop.category.name = category.substring(dashIndex + 1);
+
       if (req.body.address) {
         shop.address = req.body.address;
       }

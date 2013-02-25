@@ -9,6 +9,11 @@ var shopSchema = new Schema({
   admin: { type: ObjectId, required: true, ref: 'Admin', index: true },
   name: { type: String, required: true, index: true },
   avatar: { type: String, default: 'no_image.png' },
+  category: {
+    main: { type: String, index: true },
+    sub: { type: String, index: true },
+    name: String 
+  },
   weiboAccount: {
     username: { type: String, index: true },
     id: { type: String, index: true }
