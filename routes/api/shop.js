@@ -116,28 +116,5 @@ module.exports = {
       });
     });
 
-    // Shop.find({ 'location.coords': { $within: { $centerSphere: [userLngLat, radius / earthRadius] }} }, '-admin -createdAt -updatedAt', function(err, shops) {
-    //   if (err) {
-    //     console.error(err);
-    //     return res.json({
-    //       status: 0,
-    //       errors: [i18n.__('system-error')]
-    //     });
-    //   }
-
-    //   if (_.isEmpty(shops)) {
-    //     return res.json({
-    //       status: 1,
-    //       shops: [],
-    //       message: i18n.__('get-shops-success')
-    //     });
-    //   }
-
-    //   return res.json({
-    //     status: 1,
-    //     shops: shops,
-    //     messages: i18n.__('get-shop-success')
-    //   });
-    // });
   },
 };
