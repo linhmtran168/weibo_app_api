@@ -3,6 +3,7 @@
  */
 var Shop = require('../../models/shop')
   , i18n = require('i18n')
+  , mongoose = require('mongoose')
   , _ = require('lodash');
 
 module.exports = {
@@ -76,11 +77,29 @@ module.exports = {
    */
   nearbyShops: function(req, res) {
     var radius = 10
+      , conn = mongoose.connection
+      , query = {}
       , earthRadius = 6378;
 
     var userLngLat = [parseFloat(req.query.long), parseFloat(req.query.lat)];
 
-    Shop.find({ 'location.coords': { $within: { $centerSphere: [userLngLat, radius / earthRadius] }} }, '-admin -createdAt -updatedAt', function(err, shops) {
+    if (req.query.catMain) {
+      query = { 'category.main': req.query.catMain };
+    }
+
+    if (req.query.catSub) {
+      query = { 'category.sub': req.query.catSub };
+    }
+
+    conn.db.executeDbCommand({
+      geoNear: 'shops',
+      near: userLngLat,
+      spherical: true,
+      maxDistance: radius / earthRadius,
+      distanceMultiplier: 6378,
+      query: query
+    }, function (err, result) {
+
       if (err) {
         console.error(err);
         return res.json({
@@ -89,19 +108,36 @@ module.exports = {
         });
       }
 
-      if (_.isEmpty(shops)) {
-        return res.json({
-          status: 1,
-          shops: [],
-          message: i18n.__('get-shops-success')
-        });
-      }
-
+      var shops = result.documents[0].results;
       return res.json({
         status: 1,
         shops: shops,
         messages: i18n.__('get-shop-success')
       });
     });
+
+    // Shop.find({ 'location.coords': { $within: { $centerSphere: [userLngLat, radius / earthRadius] }} }, '-admin -createdAt -updatedAt', function(err, shops) {
+    //   if (err) {
+    //     console.error(err);
+    //     return res.json({
+    //       status: 0,
+    //       errors: [i18n.__('system-error')]
+    //     });
+    //   }
+
+    //   if (_.isEmpty(shops)) {
+    //     return res.json({
+    //       status: 1,
+    //       shops: [],
+    //       message: i18n.__('get-shops-success')
+    //     });
+    //   }
+
+    //   return res.json({
+    //     status: 1,
+    //     shops: shops,
+    //     messages: i18n.__('get-shop-success')
+    //   });
+    // });
   },
 };

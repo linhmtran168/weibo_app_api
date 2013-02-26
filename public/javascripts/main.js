@@ -37,8 +37,8 @@ $(function() {
 
     addresspickerMap.on('positionChanged', function(evt, markerPosition) {
       // Set the long/lat to the input
-      $('#lat').val(markerPosition.Ya);
-      $('#long').val(markerPosition.Za);
+      $('#lat').val(markerPosition.lat());
+      $('#long').val(markerPosition.lng());
       markerPosition.getAddress(function(address) {
         if (address) {
           $('#geo-address').val(address.formatted_address);
@@ -107,7 +107,9 @@ $(function() {
   /*
    * Select2
    */
-  $('#categories').select2();
+  if ($('#categories').length > 0) {
+    $('#categories').select2();
+  }
 
   /* 
    * Weibo login function
