@@ -19,8 +19,8 @@ var shopSchema = new Schema({
     id: { type: String, index: true }
   },
   images: [{
-    name: { type: String, required: true, index: { unique: true } },
-    thumbnail: { type: String, required: true, index: { unique: true } },
+    name: { type: String, required: true },
+    thumbnail: { type: String, required: true },
     description: String,
     uploadedAt: { type: Date, default: Date.now, index: true }
   }],
