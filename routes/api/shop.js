@@ -33,15 +33,16 @@ module.exports = {
       _.each(Object.keys(shopJSON), function(key) {
         if (!_.contains(['description', 'customFields', '_id', 'avatar', 'name', 'location', 'images', 'weiboAccount'], key)) {
           var value;
-          if (key !== 'isWifi') {
-            value = shopJSON[key];
-          } else {
+          if (key === 'isWifi') {
             if (shopJSON[key]) {
               value = i18n.__('Yes');
             } else {
               value = i18n.__('No');
             }
+          } else {
+            value = shopJSON[key];
           }
+
 
           items.push({ key: i18n.__(key), value: value });
         }
@@ -61,6 +62,7 @@ module.exports = {
           _id: shop.id,
           name: shop.name,
           description: shop.description,
+          category: shop.category.name,
           avatar: shop.avatar,
           images: shop.images,
           location: shop.location,
