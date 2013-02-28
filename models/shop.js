@@ -3,7 +3,8 @@
  */
 var mongoose = require('mongoose')
   , Schema = mongoose.Schema
-  , ObjectId = Schema.ObjectId;
+  , ObjectId = Schema.ObjectId
+  , i18n = require('i18n');
 
 var shopSchema = new Schema({
   admin: { type: ObjectId, required: true, ref: 'Admin', index: true },
@@ -12,7 +13,7 @@ var shopSchema = new Schema({
   category: {
     main: { type: String, index: true },
     sub: { type: String, index: true },
-    name: String 
+    name: { type: String, default: i18n.__('no-category') } 
   },
   weiboAccount: {
     username: { type: String, index: true },
