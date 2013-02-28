@@ -31,7 +31,7 @@ module.exports = {
       // Create the key value array from the shop object
       var items = [];
       _.each(Object.keys(shopJSON), function(key) {
-        if (!_.contains(['description', 'customFields', '_id', 'avatar', 'name', 'location', 'images', 'weiboAccount', 'category'], key)) {
+        if (!_.contains(['description', 'customFields', '_id', 'avatar', 'name', 'location', 'images', 'weiboAccount'], key)) {
           var value;
           if (key === 'isWifi') {
             if (shopJSON[key]) {
