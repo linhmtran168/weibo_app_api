@@ -37,7 +37,7 @@ block content
           table.table.table-hover.table-bordered.table-striped
             tr
               td
-                strong #{ __('shop-name') }:
+                strong #{ __('shop-name') }
               td=shop.name
 
             if shop.weiboAccount.id && (shop.weiboAccount.id.length > 0)
@@ -50,7 +50,7 @@ block content
             if currentUser.role === 'superAdmin'
               tr
                 td
-                  strong #{ __('shop-admin') }:
+                  strong #{ __('shop-admin') }
                 td=shop.admin.username
             tr
               td
@@ -60,7 +60,7 @@ block content
             if (shop.description)
               tr
                 td
-                  strong #{ __('shop-description') }:
+                  strong #{ __('shop-description') }
                 td=shop.description
             if (shop.phoneNumber)
               tr
